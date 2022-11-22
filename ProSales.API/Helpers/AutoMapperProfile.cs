@@ -18,6 +18,8 @@ namespace ProSales.API.Helpers
             CreateMap<Role, CreateRoleDto>().ReverseMap();
             CreateMap<ContactType, ContactTypeDto>().ReverseMap();
             CreateMap<ContactType, CreateContactTypeDto>().ReverseMap();
+            CreateMap<Brand, CreateBrandDto>().ReverseMap();
+            CreateMap<Brand, BrandDto>().ReverseMap();
         }
         
     }

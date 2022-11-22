@@ -47,6 +47,7 @@ public class TesteController : ControllerBase
         return Ok("Funcionei" + user);
     }
 
+    [AllowAnonymous]
     [HttpGet("testeCarlos")]
     public async Task<IActionResult> TesteCarlos(){
 
@@ -69,8 +70,6 @@ public class TesteController : ControllerBase
 
         createContact.UserCreatedId = Int32.Parse(userId);
         var add = _context.Add(createContact);
-
-        
 
         if(await _context.SaveChangesAsync() > 0){
             RetornoDto retorno = new RetornoDto();
