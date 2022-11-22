@@ -93,7 +93,7 @@ namespace ProSales.Repository.Contexts
 
             modelBuilder.Entity<Brand>()
             .HasData(
-                new Brand { Id = 1, ExternalId = Guid.NewGuid(), Name = "Generic" }
+                new Brand { Id = 1, ExternalId = Guid.NewGuid(), Name = "Generic", IsActive = true }
             );
 
             modelBuilder.Entity<DiscountType>()

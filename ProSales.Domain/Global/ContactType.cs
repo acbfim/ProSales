@@ -19,7 +19,7 @@ namespace ProSales.Domain.Global
         public bool InternalProperty { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public int UserCreatedId { get; set; }
+        public int? UserCreatedId { get; set; }
         public User? UserCreated { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public User? UserUpdated { get; set; }
