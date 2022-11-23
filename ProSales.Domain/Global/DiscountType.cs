@@ -15,14 +15,12 @@ namespace ProSales.Domain.Global
 
         [Column(TypeName = "varchar(50)")]
         [StringLength(50)]
-        public string TypeName { get; set; }
+        public string Name { get; set; }
         public double Value { get; set; } = 0.0;
-        public long? TypeCalculatioId { get; set; }
-        public TypeCalculation? TypeCalculation { get; set; }
-
+        public long? CalculationTypeId { get; set; }
+        public CalculationType? CalculationType { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public User? UserCreated { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        public User? UserUpdated { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

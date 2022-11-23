@@ -13,76 +13,76 @@ namespace ProSales.API.Controllers;
 //[AllowAnonymous]
 [Route("api/[controller]")]
 [ApiController]
-public class BrandController : ControllerBase
+public class DiscountTypeController : ControllerBase
 {
-    private readonly IBrandService brandService;
+    private readonly IDiscountTypeService service;
 
-    public BrandController(IBrandService brandService)
+    public DiscountTypeController(IDiscountTypeService discountTypeService)
     {
-        this.brandService = brandService;
+        this.service = discountTypeService;
     }
 
 
     /// <summary>
-    /// Get Brand by ExternalID
+    /// Get Item by ExternalID
     /// </summary>
     /// <param name= "ExternalId"></param>
     [HttpGet("by-external-id/{externalId}")]
     public async Task<IActionResult> getByExternalId(Guid externalId)
     {
-        var ret = this.brandService.GetBrandByExternalId(externalId).Result;
+        var ret = this.service.GetByExternalId(externalId).Result;
         return StatusCode(ret.StatusCode, ret);
     }
 
     /// <summary>
-    /// Get Brand by Name
+    /// Get Item by Name
     /// </summary>
     /// <param name= "Name"></param>
     [HttpGet("by-name-id/{name}")]
     public async Task<IActionResult> GetBrandByName(string name)
     {
-        var ret = this.brandService.GetBrandByName(name).Result;
+        var ret = this.service.GetByName(name).Result;
         return StatusCode(ret.StatusCode, ret);
     }
 
     /// <summary>
-    /// Get Brand by Query
+    /// Get Item by Query
     /// </summary>
     [HttpGet("by-query")]
-    public async Task<IActionResult> GetAllBrandByQuery([FromQuery] BrandQuery query)
+    public async Task<IActionResult> GetAllBrandByQuery([FromQuery] DiscountTypeQuery query)
     {
-        var ret = this.brandService.GetAllBrandByQuery(query).Result;
+        var ret = this.service.GetAllByQuery(query).Result;
         return StatusCode(ret.StatusCode, ret);
     }
 
     /// <summary>
-    /// Post create Brand
+    /// Post create item
     /// </summary>
     [HttpPost("create")]
-    public async Task<IActionResult> postCreate(CreateBrandDto brand)
+    public async Task<IActionResult> postCreate(CreateDiscountTypeDto create)
     {
-        var ret = this.brandService.CreateBrand(brand).Result;
+        var ret = this.service.Create(create).Result;
         return StatusCode(ret.StatusCode, ret);
     }
 
     /// <summary>
-    /// Put update Brand
+    /// Put update item
     /// </summary>
     [HttpPut("update")]
-    public async Task<IActionResult> putUpdate(BrandDto brand)
+    public async Task<IActionResult> putUpdate(DiscountTypeDto update)
     {
-        var ret = this.brandService.UpdateBrand(brand).Result;
+        var ret = this.service.Update(update).Result;
         return StatusCode(ret.StatusCode, ret);
     }
 
     /// <summary>
-    /// Put toogle alter status active Brand
+    /// Put toogle alter status active
     /// </summary>
     /// <param name= "externalId"></param>
     [HttpPut("toggleStatus/byExternalId/{externalId}")]
-    public async Task<IActionResult> putToogleDesactivate(Guid externalId)
+    public async Task<IActionResult> ToogleAlterStatus(Guid externalId)
     {
-        var ret = this.brandService.ToggleDesactivateBrand(externalId).Result;
+        var ret = this.service.ToogleAlterStatus(externalId).Result;
         return StatusCode(ret.StatusCode, ret);
     }
 }

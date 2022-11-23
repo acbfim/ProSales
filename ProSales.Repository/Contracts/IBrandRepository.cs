@@ -13,6 +13,7 @@ namespace ProSales.Repository.Contracts
         Task<Brand> GetBrandByName(string name);
         Task<Brand> GetBrandById(long id);
         Task<ICollection<Brand>> GetAllBrandByQuery(BrandQuery query);
+        Task<long> GetCountItems(BrandQuery query);
 
     }
 }

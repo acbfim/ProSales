@@ -8,14 +8,14 @@ using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Global
 {
-    public class TypeCalculation
+    public class CalculationType
     {
         public long Id { get; set; }
         public Guid ExternalId { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "varchar(100)")]
         [StringLength(100)]
-        public string TypeName { get; set; }
+        public string Name { get; set; }
         public bool InternalProperty { get; set; } = true;
     }
 }

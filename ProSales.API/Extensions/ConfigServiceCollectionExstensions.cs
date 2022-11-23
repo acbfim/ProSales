@@ -20,6 +20,18 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IBrandRepository, BrandRepository>();
+            
+            services.AddScoped<ICalculationTypeRepository, CalculationTypeRepository>();
+
+            services.AddScoped<IContactTypeService, ContactTypeService>();
+            services.AddScoped<IContactTypeRepository, ContactTypeRepository>();
+
+            services.AddScoped<IDiscountTypeService, DiscountTypeService>();
+            services.AddScoped<IDiscountTypeRepository, DiscountTypeRepository>();
+
+            services.AddScoped<IDocumentTypeService, DocumentTypeService>();
+            services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
+
 
 
             return services;

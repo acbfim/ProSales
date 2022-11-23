@@ -14,42 +14,48 @@ using ProSales.Repository.Contracts;
 
 namespace ProSales.Repository
 {
-    public class BrandRepository : IBrandRepository
+    public class DiscountTypeRepository : IDiscountTypeRepository
     {
         private readonly ProSalesContext context;
 
-        public BrandRepository(ProSalesContext context )
+        public DiscountTypeRepository(ProSalesContext context )
         {
             this.context = context;
         }
-        public async Task<Brand> GetBrandByExternalId(Guid externalId)
+        public async Task<DiscountType> GetByExternalId(Guid externalId)
         {
-            IQueryable<Brand> query = this.context.Brand.AsNoTracking();
+            IQueryable<DiscountType> query = this.context.DiscountType.AsNoTracking();
 
             return await query.FirstOrDefaultAsync(x => x.ExternalId == externalId);
         }
 
-        public async Task<Brand> GetBrandById(long id)
+        public async Task<DiscountType> GetById(long id)
         {
-            IQueryable<Brand> query = this.context.Brand.AsNoTracking();
+            IQueryable<DiscountType> query = this.context.DiscountType.AsNoTracking();
+
+            query = query.Include(x => x.CalculationType);
 
             return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Brand> GetBrandByName(string name)
+        public async Task<DiscountType> GetByName(string name)
         {
-            IQueryable<Brand> query = this.context.Brand.AsNoTracking();
+            IQueryable<DiscountType> query = this.context.DiscountType.AsNoTracking();
+
+            query = query.Include(x => x.CalculationType);
 
             return await query.FirstOrDefaultAsync(x => x.Name.ToUpper() == name.ToUpper());
         }
 
-        public async Task<ICollection<Brand>> GetAllBrandByQuery(BrandQuery query)
+        public async Task<ICollection<DiscountType>> GetAllByQuery(DiscountTypeQuery query)
         {
             var newSkip = query.Skip == 0 ? 0 : (query.Skip*query.Take);
 
-            var result = this.context.Brand.AsQueryable()
+            var result = this.context.DiscountType.AsQueryable()
             .Skip(newSkip)
             .Take((int)query.Take);
+
+            result = result.Include(x => x.CalculationType);
 
             result = result
             .Filter(query).Sort(query);
@@ -57,9 +63,9 @@ namespace ProSales.Repository
             return await result.ToListAsync();
         }
 
-        public async Task<long> GetCountItems(BrandQuery query)
+        public async Task<long> GetCountItems(DiscountTypeQuery query)
         {
-            var result = this.context.Brand.AsQueryable();
+            var result = this.context.DiscountType.AsQueryable();
 
             result = result
             .Filter(query).Sort(query);

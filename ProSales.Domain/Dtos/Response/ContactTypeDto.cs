@@ -8,7 +8,7 @@ using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Dtos
 {
-    public class BrandDto
+    public class ContactTypeDto
     {
         public Guid ExternalId { get; set; }
         public string Name { get; set; }

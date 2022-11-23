@@ -13,7 +13,7 @@ using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Dtos
 {
-    public class BrandQuery : ICustomQueryable, IQuerySort
+    public class DocumentTypeQuery : ICustomQueryable, IQuerySort
     {
         [QueryOperator(Operator = WhereOperator.Contains)]
         //[QueryOperator(Operator = WhereOperator.GreaterThanOrEqualTo)]...

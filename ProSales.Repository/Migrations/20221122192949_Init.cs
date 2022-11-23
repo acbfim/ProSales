@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProSales.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialModels : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,27 +17,227 @@ namespace ProSales.Repository.Migrations
             migrationBuilder.AlterDatabase()
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-
-            
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NormalizedName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "TypeCalculation",
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FullName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DataNascimento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Departamento = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ImagemUrlUser = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DataUltimoLogin = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NormalizedEmail = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SecurityStamp = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "CalculationType",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    TypeName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     InternalProperty = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TypeCalculation", x => x.Id);
+                    table.PrimaryKey("PK_CalculationType", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            
+            migrationBuilder.CreateTable(
+                name: "DocumentType",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocumentType", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClaimValue = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClaimValue = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "varchar(95)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProviderKey = table.Column<string>(type: "varchar(95)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProviderDisplayName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    LoginProvider = table.Column<string>(type: "varchar(95)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Name = table.Column<string>(type: "varchar(95)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Value = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Brand",
@@ -51,7 +251,8 @@ namespace ProSales.Repository.Migrations
                     UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UserUpdatedId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,11 +307,11 @@ namespace ProSales.Repository.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    TypeName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     InternalProperty = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserCreatedId = table.Column<int>(type: "int", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UserUpdatedId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -118,42 +319,7 @@ namespace ProSales.Repository.Migrations
                 {
                     table.PrimaryKey("PK_ContactType", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ContactType_AspNetUsers_UserCreatedId",
-                        column: x => x.UserCreatedId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_ContactType_AspNetUsers_UserUpdatedId",
-                        column: x => x.UserUpdatedId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "DocumentType",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    TypeName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserCreatedId = table.Column<int>(type: "int", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UserUpdatedId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DocumentType", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DocumentType_AspNetUsers_UserCreatedId",
-                        column: x => x.UserCreatedId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_DocumentType_AspNetUsers_UserUpdatedId",
                         column: x => x.UserUpdatedId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
@@ -232,33 +398,21 @@ namespace ProSales.Repository.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    TypeName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Value = table.Column<double>(type: "double", nullable: false),
-                    TypeCalculatioId = table.Column<long>(type: "bigint", nullable: true),
-                    TypeCalculationId = table.Column<long>(type: "bigint", nullable: true),
+                    CalculationTypeId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserCreatedId = table.Column<int>(type: "int", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UserUpdatedId = table.Column<int>(type: "int", nullable: true)
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DiscountType", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DiscountType_AspNetUsers_UserCreatedId",
-                        column: x => x.UserCreatedId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_DiscountType_AspNetUsers_UserUpdatedId",
-                        column: x => x.UserUpdatedId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_DiscountType_TypeCalculation_TypeCalculationId",
-                        column: x => x.TypeCalculationId,
-                        principalTable: "TypeCalculation",
+                        name: "FK_DiscountType_CalculationType_CalculationTypeId",
+                        column: x => x.CalculationTypeId,
+                        principalTable: "CalculationType",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -332,35 +486,6 @@ namespace ProSales.Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Contact",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    TypeId = table.Column<long>(type: "bigint", nullable: false),
-                    Value = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClientId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contact", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Contact_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Contact_ContactType_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "ContactType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Document",
                 columns: table => new
                 {
@@ -388,6 +513,35 @@ namespace ProSales.Repository.Migrations
                         name: "FK_Document_DocumentType_TypeId",
                         column: x => x.TypeId,
                         principalTable: "DocumentType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Contact",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    TypeId = table.Column<long>(type: "bigint", nullable: false),
+                    Value = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClientId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contact", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contact_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Contact_ContactType_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "ContactType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -604,46 +758,46 @@ namespace ProSales.Repository.Migrations
 
             migrationBuilder.InsertData(
                 table: "Brand",
-                columns: new[] { "Id", "CreatedDate", "ExternalId", "Name", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
-                values: new object[] { 1L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4510), new Guid("3a6b47ad-b2df-40bb-8005-12d4d8a798fd"), "Generic", null, null, null });
+                columns: new[] { "Id", "CreatedDate", "ExternalId", "IsActive", "Name", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
+                values: new object[] { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4620), new Guid("e8ff8b84-e0a6-417f-9ec3-6fd695812bb4"), true, "Generic", null, null, null });
 
             migrationBuilder.InsertData(
-                table: "ContactType",
-                columns: new[] { "Id", "CreatedDate", "ExternalId", "InternalProperty", "TypeName", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
+                table: "CalculationType",
+                columns: new[] { "Id", "ExternalId", "InternalProperty", "Name" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4160), new Guid("b29a45a8-ca7f-479c-96bf-5cb76385f92e"), false, "Email Pessoal", null, null, null },
-                    { 2L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4220), new Guid("34ab7c4b-cbb0-4fc5-b718-e874bf7afbd8"), false, "Email Comercial", null, null, null },
-                    { 3L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4230), new Guid("0bd20c7d-d7dd-4be1-a92a-f089b213b95d"), false, "Celular Pessoal", null, null, null },
-                    { 4L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4240), new Guid("09fdc9eb-c7c7-41d7-9a8d-b50fb9647523"), false, "Celular Comercial", null, null, null },
-                    { 5L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4250), new Guid("0163663b-e25e-470f-a6f1-046071e0ffdc"), false, "Telefone Comercial", null, null, null },
-                    { 6L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4260), new Guid("9a41e77d-1165-4daa-b14b-082c4e076882"), false, "Telefone Residencial", null, null, null },
-                    { 7L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4280), new Guid("e3f56a3a-40e1-48af-b68c-487c1d5c759b"), false, "WhatsApp Comercial", null, null, null },
-                    { 8L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4290), new Guid("3f238a52-03a9-4f4e-8f8e-e145a1969664"), false, "WhatsApp Pessoal", null, null, null }
+                    { 1L, new Guid("3bca5cda-5484-4a75-96b8-abc8a6f46ba4"), true, "SUM" },
+                    { 2L, new Guid("f20a36d7-beee-410c-99e9-25dd02c33f1e"), true, "PERCENT" },
+                    { 3L, new Guid("ac2c1ba4-e3f3-4b45-88f4-bb47eda5fcb1"), true, "SUBTRACTION" }
                 });
 
             migrationBuilder.InsertData(
-                table: "DiscountType",
-                columns: new[] { "Id", "CreatedDate", "ExternalId", "TypeCalculatioId", "TypeCalculationId", "TypeName", "UpdatedDate", "UserCreatedId", "UserUpdatedId", "Value" },
+                table: "ContactType",
+                columns: new[] { "Id", "CreatedDate", "ExternalId", "InternalProperty", "IsActive", "Name", "UpdatedDate", "UserUpdatedId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4540), new Guid("aabdf7ca-2555-4fc7-87a3-ab57e3f4b4fe"), 3L, null, "Gerente", null, null, null, 0.0 },
-                    { 2L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4550), new Guid("a39422df-07db-4cf8-834f-648a96681a97"), 3L, null, "Cupom", null, null, null, 0.0 },
-                    { 3L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4570), new Guid("37c4468c-c8ac-4b84-bb78-76cb69bd82a9"), 2L, null, "Pgamento a vista", null, null, null, 0.14999999999999999 }
+                    { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4100), new Guid("5f50f08f-a1dc-4ffc-b042-aefa7e8ae1b2"), false, true, "Email Pessoal", null, null },
+                    { 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4160), new Guid("823ad161-55dd-4e0e-8fd8-bf5d1a438cab"), false, true, "Email Comercial", null, null },
+                    { 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4170), new Guid("153303ec-9b4b-4d66-b73e-44b600cedcdd"), false, true, "Celular Pessoal", null, null },
+                    { 4L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4180), new Guid("b823159e-dd31-46d3-9a8b-f73d19750976"), false, true, "Celular Comercial", null, null },
+                    { 5L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4190), new Guid("fc6d3304-7735-4f9f-87e9-9722fabe9eb1"), false, true, "Telefone Comercial", null, null },
+                    { 6L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4210), new Guid("ee783db2-54ab-4eaf-9449-0e46c2c2f703"), false, true, "Telefone Residencial", null, null },
+                    { 7L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4220), new Guid("565a12d7-73f6-420a-a840-017927a9c2a6"), false, true, "WhatsApp Comercial", null, null },
+                    { 8L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4230), new Guid("cc9192a9-3578-469f-a801-91644d4ca00c"), false, true, "WhatsApp Pessoal", null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "DocumentType",
-                columns: new[] { "Id", "CreatedDate", "ExternalId", "TypeName", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
+                columns: new[] { "Id", "CreatedDate", "ExternalId", "IsActive", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4370), new Guid("3d4ef3ef-7ca8-401b-8c69-1446628f94aa"), "RG", null, null, null },
-                    { 2L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4390), new Guid("d09671be-95d7-4bca-a19f-53a5a9faf161"), "CPF", null, null, null },
-                    { 3L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4400), new Guid("34280936-1d86-4c47-a09f-186933987545"), "CNPJ", null, null, null },
-                    { 4L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4410), new Guid("a5abdb9a-a210-4073-a7b3-965793f7c233"), "CNH", null, null, null },
-                    { 5L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4420), new Guid("e85feeaa-c8c8-4b71-b24e-374e89a8edb1"), "Certidão de Nascimento", null, null, null },
-                    { 6L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4430), new Guid("6d97fbaf-1386-482a-b820-5c2c8b242df3"), "Certidão de Casamento", null, null, null },
-                    { 7L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4450), new Guid("8e2cac3d-a9c1-4da3-8b4f-4b7b0ec2e55d"), "Foto do usuário", null, null, null }
+                    { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4350), new Guid("d71f43d7-7aeb-4c89-a678-f8c0c504fde4"), true, "RG", null },
+                    { 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4370), new Guid("c7f90a86-7efb-44ca-b187-01bc4ed8ad18"), true, "CPF", null },
+                    { 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4380), new Guid("67d6ef3f-55a9-482b-b1e4-b4139c72812d"), true, "CNPJ", null },
+                    { 4L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4390), new Guid("e045f443-6647-471c-ad6a-f9e597fa98f6"), true, "CNH", null },
+                    { 5L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4410), new Guid("0fc72a22-eedf-484f-bf20-a09529888103"), true, "Certidão de Nascimento", null },
+                    { 6L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4420), new Guid("41f1f63c-d52e-4823-9451-e5dc11a9b1d8"), true, "Certidão de Casamento", null },
+                    { 7L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4430), new Guid("d890214e-51c0-4a7d-b03e-402ceda80452"), true, "Foto do usuário", null }
                 });
 
             migrationBuilder.InsertData(
@@ -651,18 +805,8 @@ namespace ProSales.Repository.Migrations
                 columns: new[] { "Id", "CreatedDate", "ExternalId", "InternalProperty", "TypeName", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4590), new Guid("d9fb9dcc-7407-407a-97e3-5f5d7de0a1cd"), true, "Serviço", null, null, null },
-                    { 2L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4600), new Guid("370f1fa6-90d1-44cb-aefb-6f005934e8bb"), true, "Produto", null, null, null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "TypeCalculation",
-                columns: new[] { "Id", "ExternalId", "InternalProperty", "TypeName" },
-                values: new object[,]
-                {
-                    { 1L, new Guid("0d540f8b-6c20-4d1b-a208-07b4db5b9112"), true, "SUM" },
-                    { 2L, new Guid("7cba4bdb-7d32-4033-9aff-5a878ae77bca"), true, "PERCENT" },
-                    { 3L, new Guid("2028c4ab-6a88-4f18-a0de-3469531c3fe1"), true, "SUBTRACTION" }
+                    { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4700), new Guid("b9ab3201-c49c-4d2b-a37a-1dd63ff9e54a"), true, "Serviço", null, null, null },
+                    { 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4710), new Guid("1b9c14da-2172-4b48-88ad-73619fab45f7"), true, "Produto", null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -670,9 +814,19 @@ namespace ProSales.Repository.Migrations
                 columns: new[] { "Id", "CreatedDate", "Description", "ExternalId", "Label", "Name", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4470), null, new Guid("77b8ad33-6f63-4c3c-8623-e99f60c8b43f"), "R$", "Real", null, null, null },
-                    { 2L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4480), null, new Guid("c33ec2af-cd36-489a-98f6-31351220658e"), "US$", "Dólar", null, null, null },
-                    { 3L, new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4490), null, new Guid("971df226-e904-4d9f-9375-c2c2ce747f60"), "€", "Euro", null, null, null }
+                    { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4460), null, new Guid("9769477e-841f-4f9f-9e02-ea6623246b6d"), "R$", "Real", null, null, null },
+                    { 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4470), null, new Guid("271766a6-1d3e-4853-9af5-5af884e59007"), "US$", "Dólar", null, null, null },
+                    { 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4480), null, new Guid("74927454-1a70-4bb2-9d27-d86e5616f01f"), "€", "Euro", null, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DiscountType",
+                columns: new[] { "Id", "CalculationTypeId", "CreatedDate", "ExternalId", "IsActive", "Name", "UpdatedDate", "Value" },
+                values: new object[,]
+                {
+                    { 1L, 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4650), new Guid("3199ee31-a6b0-4345-9e65-e3ee89c8f774"), true, "Gerente", null, 0.0 },
+                    { 2L, 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4660), new Guid("5bf2adb3-1dfb-4743-8946-5c5f6b04ed6d"), true, "Cupom", null, 0.0 },
+                    { 3L, 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4670), new Guid("9e500b36-95ef-43c7-a703-fee642cb0bdc"), true, "Pgamento a vista", null, 0.14999999999999999 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -690,7 +844,42 @@ namespace ProSales.Repository.Migrations
                 table: "Address",
                 column: "UserUpdatedId");
 
-            
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Brand_UserCreatedId",
@@ -728,29 +917,14 @@ namespace ProSales.Repository.Migrations
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContactType_UserCreatedId",
-                table: "ContactType",
-                column: "UserCreatedId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ContactType_UserUpdatedId",
                 table: "ContactType",
                 column: "UserUpdatedId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DiscountType_TypeCalculationId",
+                name: "IX_DiscountType_CalculationTypeId",
                 table: "DiscountType",
-                column: "TypeCalculationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DiscountType_UserCreatedId",
-                table: "DiscountType",
-                column: "UserCreatedId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DiscountType_UserUpdatedId",
-                table: "DiscountType",
-                column: "UserUpdatedId");
+                column: "CalculationTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Document_ClientId",
@@ -761,16 +935,6 @@ namespace ProSales.Repository.Migrations
                 name: "IX_Document_TypeId",
                 table: "Document",
                 column: "TypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DocumentType_UserCreatedId",
-                table: "DocumentType",
-                column: "UserCreatedId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DocumentType_UserUpdatedId",
-                table: "DocumentType",
-                column: "UserUpdatedId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HistoryProductSale_ProductId",
@@ -940,7 +1104,7 @@ namespace ProSales.Repository.Migrations
                 name: "Sale");
 
             migrationBuilder.DropTable(
-                name: "TypeCalculation");
+                name: "CalculationType");
 
             migrationBuilder.DropTable(
                 name: "Client");

@@ -13,11 +13,8 @@ namespace ProSales.Domain.Global
         public long Id { get; set; }
         public Guid ExternalId { get; set; } = Guid.NewGuid();
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public int? UserCreatedId { get; set; }
-        public User? UserCreated { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        public int? UserUpdatedId { get; set; }
-        public User? UserUpdated { get; set; }
+        
 
         [Column(TypeName = "varchar(20)")]
         [StringLength(20)]

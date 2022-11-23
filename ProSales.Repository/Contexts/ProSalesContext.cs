@@ -34,7 +34,7 @@ namespace ProSales.Repository.Contexts
         public DbSet<ProductType> ProductType { get; set; }
         public DbSet<Sale> Sale { get; set; }
         public DbSet<Specification> Specification { get; set; }
-        public DbSet<TypeCalculation> TypeCalculation { get; set; }
+        public DbSet<CalculationType> CalculationType { get; set; }
         public DbSet<TypeCoin> TypeCoin { get; set; }
 
 
@@ -62,25 +62,25 @@ namespace ProSales.Repository.Contexts
 
             modelBuilder.Entity<ContactType>()
             .HasData(
-                new ContactType { Id = 1, ExternalId = Guid.NewGuid(), TypeName = "Email Pessoal" }
-                , new ContactType { Id = 2, ExternalId = Guid.NewGuid(), TypeName = "Email Comercial" }
-                , new ContactType { Id = 3, ExternalId = Guid.NewGuid(), TypeName = "Celular Pessoal" }
-                , new ContactType { Id = 4, ExternalId = Guid.NewGuid(), TypeName = "Celular Comercial" }
-                , new ContactType { Id = 5, ExternalId = Guid.NewGuid(), TypeName = "Telefone Comercial" }
-                , new ContactType { Id = 6, ExternalId = Guid.NewGuid(), TypeName = "Telefone Residencial" }
-                , new ContactType { Id = 7, ExternalId = Guid.NewGuid(), TypeName = "WhatsApp Comercial" }
-                , new ContactType { Id = 8, ExternalId = Guid.NewGuid(), TypeName = "WhatsApp Pessoal" }
+                new ContactType { Id = 1, ExternalId = Guid.NewGuid(), Name = "Email Pessoal" }
+                , new ContactType { Id = 2, ExternalId = Guid.NewGuid(), Name = "Email Comercial" }
+                , new ContactType { Id = 3, ExternalId = Guid.NewGuid(), Name = "Celular Pessoal" }
+                , new ContactType { Id = 4, ExternalId = Guid.NewGuid(), Name = "Celular Comercial" }
+                , new ContactType { Id = 5, ExternalId = Guid.NewGuid(), Name = "Telefone Comercial" }
+                , new ContactType { Id = 6, ExternalId = Guid.NewGuid(), Name = "Telefone Residencial" }
+                , new ContactType { Id = 7, ExternalId = Guid.NewGuid(), Name = "WhatsApp Comercial" }
+                , new ContactType { Id = 8, ExternalId = Guid.NewGuid(), Name = "WhatsApp Pessoal" }
             );
 
             modelBuilder.Entity<DocumentType>()
             .HasData(
-                new DocumentType { Id = 1, ExternalId = Guid.NewGuid(), TypeName = "RG" }
-                , new DocumentType { Id = 2, ExternalId = Guid.NewGuid(), TypeName = "CPF" }
-                , new DocumentType { Id = 3, ExternalId = Guid.NewGuid(), TypeName = "CNPJ" }
-                , new DocumentType { Id = 4, ExternalId = Guid.NewGuid(), TypeName = "CNH" }
-                , new DocumentType { Id = 5, ExternalId = Guid.NewGuid(), TypeName = "Certidão de Nascimento" }
-                , new DocumentType { Id = 6, ExternalId = Guid.NewGuid(), TypeName = "Certidão de Casamento" }
-                , new DocumentType { Id = 7, ExternalId = Guid.NewGuid(), TypeName = "Foto do usuário" }
+                new DocumentType { Id = 1, ExternalId = Guid.NewGuid(), Name = "RG" }
+                , new DocumentType { Id = 2, ExternalId = Guid.NewGuid(), Name = "CPF" }
+                , new DocumentType { Id = 3, ExternalId = Guid.NewGuid(), Name = "CNPJ" }
+                , new DocumentType { Id = 4, ExternalId = Guid.NewGuid(), Name = "CNH" }
+                , new DocumentType { Id = 5, ExternalId = Guid.NewGuid(), Name = "Certidão de Nascimento" }
+                , new DocumentType { Id = 6, ExternalId = Guid.NewGuid(), Name = "Certidão de Casamento" }
+                , new DocumentType { Id = 7, ExternalId = Guid.NewGuid(), Name = "Foto do usuário" }
             );
 
             modelBuilder.Entity<TypeCoin>()
@@ -98,9 +98,9 @@ namespace ProSales.Repository.Contexts
 
             modelBuilder.Entity<DiscountType>()
             .HasData(
-                new DiscountType { Id = 1, ExternalId = Guid.NewGuid(), TypeName = "Gerente", TypeCalculatioId = 3}
-                , new DiscountType { Id = 2, ExternalId = Guid.NewGuid(), TypeName = "Cupom", TypeCalculatioId = 3 }
-                , new DiscountType { Id = 3, ExternalId = Guid.NewGuid(), TypeName = "Pgamento a vista", Value = 0.15 ,TypeCalculatioId = 2}
+                new DiscountType { Id = 1, ExternalId = Guid.NewGuid(), Name = "Gerente", CalculationTypeId = 3}
+                , new DiscountType { Id = 2, ExternalId = Guid.NewGuid(), Name = "Cupom", CalculationTypeId = 3 }
+                , new DiscountType { Id = 3, ExternalId = Guid.NewGuid(), Name = "Pgamento a vista", Value = 0.15 ,CalculationTypeId = 2}
          
             );
 
@@ -110,11 +110,11 @@ namespace ProSales.Repository.Contexts
                 , new ProductType { Id = 2, ExternalId = Guid.NewGuid(), TypeName = "Produto", InternalProperty = true }
             );
 
-            modelBuilder.Entity<TypeCalculation>()
+            modelBuilder.Entity<CalculationType>()
             .HasData(
-                new TypeCalculation { Id = 1, ExternalId = Guid.NewGuid(), TypeName = "SUM", InternalProperty = true}
-                , new TypeCalculation { Id = 2, ExternalId = Guid.NewGuid(), TypeName = "PERCENT", InternalProperty = true }
-                ,new TypeCalculation { Id = 3, ExternalId = Guid.NewGuid(), TypeName = "SUBTRACTION", InternalProperty = true}
+                new CalculationType { Id = 1, ExternalId = Guid.NewGuid(), Name = "SUM", InternalProperty = true}
+                , new CalculationType { Id = 2, ExternalId = Guid.NewGuid(), Name = "PERCENT", InternalProperty = true }
+                ,new CalculationType { Id = 3, ExternalId = Guid.NewGuid(), Name = "SUBTRACTION", InternalProperty = true}
             );
 
         }

@@ -11,8 +11,8 @@ using ProSales.Repository.Contexts;
 namespace ProSales.Repository.Migrations
 {
     [DbContext(typeof(ProSalesContext))]
-    [Migration("20221121164855_Initial_Models")]
-    partial class InitialModels
+    [Migration("20221122192949_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -183,6 +183,9 @@ namespace ProSales.Repository.Migrations
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -209,9 +212,55 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4510),
-                            ExternalId = new Guid("3a6b47ad-b2df-40bb-8005-12d4d8a798fd"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4620),
+                            ExternalId = new Guid("e8ff8b84-e0a6-417f-9ec3-6fd695812bb4"),
+                            IsActive = true,
                             Name = "Generic"
+                        });
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.CalculationType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("InternalProperty")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CalculationType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            ExternalId = new Guid("3bca5cda-5484-4a75-96b8-abc8a6f46ba4"),
+                            InternalProperty = true,
+                            Name = "SUM"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            ExternalId = new Guid("f20a36d7-beee-410c-99e9-25dd02c33f1e"),
+                            InternalProperty = true,
+                            Name = "PERCENT"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            ExternalId = new Guid("ac2c1ba4-e3f3-4b45-88f4-bb47eda5fcb1"),
+                            InternalProperty = true,
+                            Name = "SUBTRACTION"
                         });
                 });
 
@@ -316,7 +365,10 @@ namespace ProSales.Repository.Migrations
                     b.Property<bool>("InternalProperty")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("TypeName")
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
@@ -324,15 +376,10 @@ namespace ProSales.Repository.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UserCreatedId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserUpdatedId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserCreatedId");
 
                     b.HasIndex("UserUpdatedId");
 
@@ -342,66 +389,74 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4160),
-                            ExternalId = new Guid("b29a45a8-ca7f-479c-96bf-5cb76385f92e"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4100),
+                            ExternalId = new Guid("5f50f08f-a1dc-4ffc-b042-aefa7e8ae1b2"),
                             InternalProperty = false,
-                            TypeName = "Email Pessoal"
+                            IsActive = true,
+                            Name = "Email Pessoal"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4220),
-                            ExternalId = new Guid("34ab7c4b-cbb0-4fc5-b718-e874bf7afbd8"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4160),
+                            ExternalId = new Guid("823ad161-55dd-4e0e-8fd8-bf5d1a438cab"),
                             InternalProperty = false,
-                            TypeName = "Email Comercial"
+                            IsActive = true,
+                            Name = "Email Comercial"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4230),
-                            ExternalId = new Guid("0bd20c7d-d7dd-4be1-a92a-f089b213b95d"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4170),
+                            ExternalId = new Guid("153303ec-9b4b-4d66-b73e-44b600cedcdd"),
                             InternalProperty = false,
-                            TypeName = "Celular Pessoal"
+                            IsActive = true,
+                            Name = "Celular Pessoal"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4240),
-                            ExternalId = new Guid("09fdc9eb-c7c7-41d7-9a8d-b50fb9647523"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4180),
+                            ExternalId = new Guid("b823159e-dd31-46d3-9a8b-f73d19750976"),
                             InternalProperty = false,
-                            TypeName = "Celular Comercial"
+                            IsActive = true,
+                            Name = "Celular Comercial"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4250),
-                            ExternalId = new Guid("0163663b-e25e-470f-a6f1-046071e0ffdc"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4190),
+                            ExternalId = new Guid("fc6d3304-7735-4f9f-87e9-9722fabe9eb1"),
                             InternalProperty = false,
-                            TypeName = "Telefone Comercial"
+                            IsActive = true,
+                            Name = "Telefone Comercial"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4260),
-                            ExternalId = new Guid("9a41e77d-1165-4daa-b14b-082c4e076882"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4210),
+                            ExternalId = new Guid("ee783db2-54ab-4eaf-9449-0e46c2c2f703"),
                             InternalProperty = false,
-                            TypeName = "Telefone Residencial"
+                            IsActive = true,
+                            Name = "Telefone Residencial"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4280),
-                            ExternalId = new Guid("e3f56a3a-40e1-48af-b68c-487c1d5c759b"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4220),
+                            ExternalId = new Guid("565a12d7-73f6-420a-a840-017927a9c2a6"),
                             InternalProperty = false,
-                            TypeName = "WhatsApp Comercial"
+                            IsActive = true,
+                            Name = "WhatsApp Comercial"
                         },
                         new
                         {
                             Id = 8L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4290),
-                            ExternalId = new Guid("3f238a52-03a9-4f4e-8f8e-e145a1969664"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4230),
+                            ExternalId = new Guid("cc9192a9-3578-469f-a801-91644d4ca00c"),
                             InternalProperty = false,
-                            TypeName = "WhatsApp Pessoal"
+                            IsActive = true,
+                            Name = "WhatsApp Pessoal"
                         });
                 });
 
@@ -411,19 +466,19 @@ namespace ProSales.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("CalculationTypeId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
-                    b.Property<long?>("TypeCalculatioId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<long?>("TypeCalculationId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("TypeName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
@@ -431,22 +486,12 @@ namespace ProSales.Repository.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UserCreatedId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserUpdatedId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Value")
                         .HasColumnType("double");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeCalculationId");
-
-                    b.HasIndex("UserCreatedId");
-
-                    b.HasIndex("UserUpdatedId");
+                    b.HasIndex("CalculationTypeId");
 
                     b.ToTable("DiscountType");
 
@@ -454,28 +499,31 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4540),
-                            ExternalId = new Guid("aabdf7ca-2555-4fc7-87a3-ab57e3f4b4fe"),
-                            TypeCalculatioId = 3L,
-                            TypeName = "Gerente",
+                            CalculationTypeId = 3L,
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4650),
+                            ExternalId = new Guid("3199ee31-a6b0-4345-9e65-e3ee89c8f774"),
+                            IsActive = true,
+                            Name = "Gerente",
                             Value = 0.0
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4550),
-                            ExternalId = new Guid("a39422df-07db-4cf8-834f-648a96681a97"),
-                            TypeCalculatioId = 3L,
-                            TypeName = "Cupom",
+                            CalculationTypeId = 3L,
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4660),
+                            ExternalId = new Guid("5bf2adb3-1dfb-4743-8946-5c5f6b04ed6d"),
+                            IsActive = true,
+                            Name = "Cupom",
                             Value = 0.0
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4570),
-                            ExternalId = new Guid("37c4468c-c8ac-4b84-bb78-76cb69bd82a9"),
-                            TypeCalculatioId = 2L,
-                            TypeName = "Pgamento a vista",
+                            CalculationTypeId = 2L,
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4670),
+                            ExternalId = new Guid("9e500b36-95ef-43c7-a703-fee642cb0bdc"),
+                            IsActive = true,
+                            Name = "Pgamento a vista",
                             Value = 0.14999999999999999
                         });
                 });
@@ -529,7 +577,10 @@ namespace ProSales.Repository.Migrations
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("TypeName")
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
@@ -537,17 +588,7 @@ namespace ProSales.Repository.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UserCreatedId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserUpdatedId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserCreatedId");
-
-                    b.HasIndex("UserUpdatedId");
 
                     b.ToTable("DocumentType");
 
@@ -555,51 +596,58 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4370),
-                            ExternalId = new Guid("3d4ef3ef-7ca8-401b-8c69-1446628f94aa"),
-                            TypeName = "RG"
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4350),
+                            ExternalId = new Guid("d71f43d7-7aeb-4c89-a678-f8c0c504fde4"),
+                            IsActive = true,
+                            Name = "RG"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4390),
-                            ExternalId = new Guid("d09671be-95d7-4bca-a19f-53a5a9faf161"),
-                            TypeName = "CPF"
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4370),
+                            ExternalId = new Guid("c7f90a86-7efb-44ca-b187-01bc4ed8ad18"),
+                            IsActive = true,
+                            Name = "CPF"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4400),
-                            ExternalId = new Guid("34280936-1d86-4c47-a09f-186933987545"),
-                            TypeName = "CNPJ"
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4380),
+                            ExternalId = new Guid("67d6ef3f-55a9-482b-b1e4-b4139c72812d"),
+                            IsActive = true,
+                            Name = "CNPJ"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4410),
-                            ExternalId = new Guid("a5abdb9a-a210-4073-a7b3-965793f7c233"),
-                            TypeName = "CNH"
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4390),
+                            ExternalId = new Guid("e045f443-6647-471c-ad6a-f9e597fa98f6"),
+                            IsActive = true,
+                            Name = "CNH"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4420),
-                            ExternalId = new Guid("e85feeaa-c8c8-4b71-b24e-374e89a8edb1"),
-                            TypeName = "Certidão de Nascimento"
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4410),
+                            ExternalId = new Guid("0fc72a22-eedf-484f-bf20-a09529888103"),
+                            IsActive = true,
+                            Name = "Certidão de Nascimento"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4430),
-                            ExternalId = new Guid("6d97fbaf-1386-482a-b820-5c2c8b242df3"),
-                            TypeName = "Certidão de Casamento"
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4420),
+                            ExternalId = new Guid("41f1f63c-d52e-4823-9451-e5dc11a9b1d8"),
+                            IsActive = true,
+                            Name = "Certidão de Casamento"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4450),
-                            ExternalId = new Guid("8e2cac3d-a9c1-4da3-8b4f-4b7b0ec2e55d"),
-                            TypeName = "Foto do usuário"
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4430),
+                            ExternalId = new Guid("d890214e-51c0-4a7d-b03e-402ceda80452"),
+                            IsActive = true,
+                            Name = "Foto do usuário"
                         });
                 });
 
@@ -806,16 +854,16 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4590),
-                            ExternalId = new Guid("d9fb9dcc-7407-407a-97e3-5f5d7de0a1cd"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4700),
+                            ExternalId = new Guid("b9ab3201-c49c-4d2b-a37a-1dd63ff9e54a"),
                             InternalProperty = true,
                             TypeName = "Serviço"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4600),
-                            ExternalId = new Guid("370f1fa6-90d1-44cb-aefb-6f005934e8bb"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4710),
+                            ExternalId = new Guid("1b9c14da-2172-4b48-88ad-73619fab45f7"),
                             InternalProperty = true,
                             TypeName = "Produto"
                         });
@@ -882,51 +930,6 @@ namespace ProSales.Repository.Migrations
                     b.ToTable("Specification");
                 });
 
-            modelBuilder.Entity("ProSales.Domain.Global.TypeCalculation", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("ExternalId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<bool>("InternalProperty")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeCalculation");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            ExternalId = new Guid("0d540f8b-6c20-4d1b-a208-07b4db5b9112"),
-                            InternalProperty = true,
-                            TypeName = "SUM"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            ExternalId = new Guid("7cba4bdb-7d32-4033-9aff-5a878ae77bca"),
-                            InternalProperty = true,
-                            TypeName = "PERCENT"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            ExternalId = new Guid("2028c4ab-6a88-4f18-a0de-3469531c3fe1"),
-                            InternalProperty = true,
-                            TypeName = "SUBTRACTION"
-                        });
-                });
-
             modelBuilder.Entity("ProSales.Domain.Global.TypeCoin", b =>
                 {
                     b.Property<long>("Id")
@@ -974,24 +977,24 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4470),
-                            ExternalId = new Guid("77b8ad33-6f63-4c3c-8623-e99f60c8b43f"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4460),
+                            ExternalId = new Guid("9769477e-841f-4f9f-9e02-ea6623246b6d"),
                             Label = "R$",
                             Name = "Real"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4480),
-                            ExternalId = new Guid("c33ec2af-cd36-489a-98f6-31351220658e"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4470),
+                            ExternalId = new Guid("271766a6-1d3e-4853-9af5-5af884e59007"),
                             Label = "US$",
                             Name = "Dólar"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2022, 11, 21, 13, 48, 55, 458, DateTimeKind.Local).AddTicks(4490),
-                            ExternalId = new Guid("971df226-e904-4d9f-9375-c2c2ce747f60"),
+                            CreatedDate = new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4480),
+                            ExternalId = new Guid("74927454-1a70-4bb2-9d27-d86e5616f01f"),
                             Label = "€",
                             Name = "Euro"
                         });
@@ -1244,38 +1247,20 @@ namespace ProSales.Repository.Migrations
 
             modelBuilder.Entity("ProSales.Domain.Global.ContactType", b =>
                 {
-                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
-                        .WithMany()
-                        .HasForeignKey("UserCreatedId");
-
                     b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
                         .WithMany()
                         .HasForeignKey("UserUpdatedId");
-
-                    b.Navigation("UserCreated");
 
                     b.Navigation("UserUpdated");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.DiscountType", b =>
                 {
-                    b.HasOne("ProSales.Domain.Global.TypeCalculation", "TypeCalculation")
+                    b.HasOne("ProSales.Domain.Global.CalculationType", "CalculationType")
                         .WithMany()
-                        .HasForeignKey("TypeCalculationId");
+                        .HasForeignKey("CalculationTypeId");
 
-                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
-                        .WithMany()
-                        .HasForeignKey("UserCreatedId");
-
-                    b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
-                        .WithMany()
-                        .HasForeignKey("UserUpdatedId");
-
-                    b.Navigation("TypeCalculation");
-
-                    b.Navigation("UserCreated");
-
-                    b.Navigation("UserUpdated");
+                    b.Navigation("CalculationType");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.Document", b =>
@@ -1291,21 +1276,6 @@ namespace ProSales.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Type");
-                });
-
-            modelBuilder.Entity("ProSales.Domain.Global.DocumentType", b =>
-                {
-                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
-                        .WithMany()
-                        .HasForeignKey("UserCreatedId");
-
-                    b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
-                        .WithMany()
-                        .HasForeignKey("UserUpdatedId");
-
-                    b.Navigation("UserCreated");
-
-                    b.Navigation("UserUpdated");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.HistoryProductSale", b =>

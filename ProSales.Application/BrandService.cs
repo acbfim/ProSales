@@ -38,11 +38,11 @@ namespace ProSales.Application
                 var brandFound = this.BrandRepository.GetBrandByName(createBrand.Name).Result;
 
                 if (brandFound != null)
-                    return RetornoDto.objectDuplicaded(brandFound);
+                    return RetornoDto.objectDuplicaded(_mapper.Map<BrandDto>(brandFound));
 
                 var brand = _mapper.Map<Brand>(createBrand);
 
-                brand.UserCreatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                //brand.UserCreatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 _globalRepo.Add(brand);
 
                 if (await _globalRepo.SaveChangesAsync())
@@ -68,10 +68,10 @@ namespace ProSales.Application
 
                 var brandFoundByName = this.BrandRepository.GetBrandByName(brand.Name).Result;
                 if (brandFoundByName is not null)
-                    return RetornoDto.objectDuplicaded(brandFoundByName);
+                    return RetornoDto.objectDuplicaded(_mapper.Map<BrandDto>(brandFoundByName));
 
 
-                brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                //brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 brandFound.UpdatedDate = DateTime.Now;
                 brandFound.Name = brand.Name;
 
@@ -97,7 +97,7 @@ namespace ProSales.Application
                 if (brandFound == null)
                     return RetornoDto.objectNotFound();
 
-                brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                //brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 brandFound.UpdatedDate = DateTime.Now;
 
                 brandFound.IsActive = !brandFound.IsActive;
@@ -179,7 +179,9 @@ namespace ProSales.Application
                 if (brandFound == null)
                     return RetornoDto.objectNotFound();
 
-                return RetornoDto.objectFoundSuccess(_mapper.Map<ICollection<BrandDto>>(brandFound));
+                var totalItems = await this.BrandRepository.GetCountItems(query);
+
+                return RetornoDto.objectsFoundSuccess(_mapper.Map<ICollection<BrandDto>>(brandFound),query.Skip,query.Take,totalItems);
             }
             catch (Exception ex)
             {
