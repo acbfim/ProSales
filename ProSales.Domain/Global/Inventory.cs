@@ -12,6 +12,6 @@ namespace ProSales.Domain.Global
         public Guid ExternalId { get; set; } = Guid.NewGuid();
         public Product Product { get; set; }
         public string? BarCode { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

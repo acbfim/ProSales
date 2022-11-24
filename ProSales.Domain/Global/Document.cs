@@ -24,5 +24,8 @@ namespace ProSales.Domain.Global
         [Column(TypeName = "varchar(130)")]
         [StringLength(300)]
         public string? FileName { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public bool InternalProperty { get; set; } = false;
     }
 }

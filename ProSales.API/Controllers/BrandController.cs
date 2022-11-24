@@ -13,6 +13,7 @@ namespace ProSales.API.Controllers;
 //[AllowAnonymous]
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles = "Admin,admin,administrador,Administrador")]
 public class BrandController : ControllerBase
 {
     private readonly IBrandService brandService;
@@ -38,7 +39,7 @@ public class BrandController : ControllerBase
     /// Get Brand by Name
     /// </summary>
     /// <param name= "Name"></param>
-    [HttpGet("by-name-id/{name}")]
+    [HttpGet("by-name/{name}")]
     public async Task<IActionResult> GetBrandByName(string name)
     {
         var ret = this.brandService.GetBrandByName(name).Result;
@@ -79,7 +80,7 @@ public class BrandController : ControllerBase
     /// Put toogle alter status active Brand
     /// </summary>
     /// <param name= "externalId"></param>
-    [HttpPut("toggleStatus/byExternalId/{externalId}")]
+    [HttpPut("toggleStatus/by-external-id/{externalId}")]
     public async Task<IActionResult> putToogleDesactivate(Guid externalId)
     {
         var ret = this.brandService.ToggleDesactivateBrand(externalId).Result;

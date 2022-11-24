@@ -19,8 +19,9 @@ namespace ProSales.Domain.Global
         public double Value { get; set; } = 0.0;
         public long? CalculationTypeId { get; set; }
         public CalculationType? CalculationType { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
         public bool IsActive { get; set; } = true;
+        public bool InternalProperty { get; set; } = false;
     }
 }

@@ -19,5 +19,6 @@ namespace ProSales.Domain.Global
         [Column(TypeName = "varchar(1000)")]
         [StringLength(1000)]
         public string Value { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

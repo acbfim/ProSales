@@ -12,8 +12,8 @@ namespace ProSales.Domain.Global
     {
         public long Id { get; set; }
         public Guid ExternalId { get; set; } = Guid.NewGuid();
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
         
 
         [Column(TypeName = "varchar(20)")]

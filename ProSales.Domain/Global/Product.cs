@@ -30,7 +30,7 @@ namespace ProSales.Domain.Global
         public double Discount { get; set; } = 0.0;
         public Brand? Brand { get; set; }
         public ICollection<Inventory>? Inventory { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public User? UserCreated { get; set; }
         public ICollection<Specification>? Specifications { get; set; }
         public bool IsActive { get; set; } = true;

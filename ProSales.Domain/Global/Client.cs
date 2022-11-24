@@ -20,9 +20,9 @@ namespace ProSales.Domain.Global
         public ICollection<Address>? Addresses { get; set; }
         public ICollection<Document>? Documents { get; set; }
         
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public User? UserCreated { get; set; }
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public User? UserUpdated { get; set; }
     }
 }

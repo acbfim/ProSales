@@ -16,6 +16,6 @@ namespace ProSales.Domain.Global
         [Column(TypeName = "varchar(100)")]
         [StringLength(100)]
         public string Name { get; set; }
-        public bool InternalProperty { get; set; } = true;
+        public bool InternalProperty { get; set; } = false;
     }
 }

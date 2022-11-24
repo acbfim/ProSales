@@ -14,6 +14,6 @@ namespace ProSales.Domain.Global
         public ICollection<Product>? Products { get; set; }
         public TypeCoin TypeCoin { get; set; }
         public double Amount { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

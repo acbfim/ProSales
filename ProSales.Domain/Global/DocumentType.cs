@@ -16,8 +16,9 @@ namespace ProSales.Domain.Global
         [Column(TypeName = "varchar(100)")]
         [StringLength(100)]
         public string Name { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
         public bool IsActive { get; set; } = true;
+        public bool InternalProperty { get; set; } = false;
     }
 }

@@ -15,5 +15,6 @@ namespace ProSales.Domain.Global
         public double Amount { get; set; } = 0.0;
         public User? Seller { get; set; }
         public ICollection<Product>? Products { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

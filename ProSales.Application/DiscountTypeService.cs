@@ -86,7 +86,7 @@ namespace ProSales.Application
 
                 itemFound.CalculationTypeId = calculateItemFound.Id;
                 //itemFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                itemFound.UpdatedDate = DateTime.Now;
+                itemFound.UpdatedAt = DateTime.Now;
                 itemFound.Name = update.Name;
 
                 _globalRepo.Update(itemFound);
@@ -112,7 +112,7 @@ namespace ProSales.Application
                     return RetornoDto.objectNotFound();
 
                 //itemFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                itemFound.UpdatedDate = DateTime.Now;
+                itemFound.UpdatedAt = DateTime.Now;
 
                 itemFound.IsActive = !itemFound.IsActive;
 

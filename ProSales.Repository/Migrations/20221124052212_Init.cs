@@ -83,6 +83,25 @@ namespace ProSales.Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Brand",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Brand", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "CalculationType",
                 columns: table => new
                 {
@@ -108,9 +127,10 @@ namespace ProSales.Repository.Migrations
                     ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    InternalProperty = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -240,37 +260,6 @@ namespace ProSales.Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Brand",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserCreatedId = table.Column<int>(type: "int", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UserUpdatedId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Brand", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Brand_AspNetUsers_UserCreatedId",
-                        column: x => x.UserCreatedId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Brand_AspNetUsers_UserUpdatedId",
-                        column: x => x.UserUpdatedId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Client",
                 columns: table => new
                 {
@@ -279,9 +268,9 @@ namespace ProSales.Repository.Migrations
                     ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     FullName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserCreatedId = table.Column<int>(type: "int", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UserUpdatedId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -311,8 +300,8 @@ namespace ProSales.Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     InternalProperty = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UserUpdatedId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -336,9 +325,9 @@ namespace ProSales.Repository.Migrations
                     TypeName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     InternalProperty = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserCreatedId = table.Column<int>(type: "int", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UserUpdatedId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -370,10 +359,11 @@ namespace ProSales.Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Label = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserCreatedId = table.Column<int>(type: "int", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UserUpdatedId = table.Column<int>(type: "int", nullable: true)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UserUpdatedId = table.Column<int>(type: "int", nullable: true),
+                    InternalProperty = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -402,9 +392,10 @@ namespace ProSales.Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Value = table.Column<double>(type: "double", nullable: false),
                     CalculationTypeId = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    InternalProperty = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -436,9 +427,9 @@ namespace ProSales.Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ZipCode = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserCreatedId = table.Column<int>(type: "int", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UserUpdatedId = table.Column<int>(type: "int", nullable: true),
                     ClientId = table.Column<long>(type: "bigint", nullable: true)
                 },
@@ -470,7 +461,7 @@ namespace ProSales.Repository.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ClientId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -499,6 +490,8 @@ namespace ProSales.Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FileName = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    InternalProperty = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ClientId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -528,6 +521,7 @@ namespace ProSales.Repository.Migrations
                     TypeId = table.Column<long>(type: "bigint", nullable: false),
                     Value = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ClientId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -558,7 +552,7 @@ namespace ProSales.Repository.Migrations
                     ClientId = table.Column<long>(type: "bigint", nullable: true),
                     TypeCoinId = table.Column<long>(type: "bigint", nullable: false),
                     Amount = table.Column<double>(type: "double", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -587,7 +581,8 @@ namespace ProSales.Repository.Migrations
                     ClientId = table.Column<long>(type: "bigint", nullable: true),
                     TypeCoinId = table.Column<long>(type: "bigint", nullable: false),
                     Amount = table.Column<double>(type: "double", nullable: false),
-                    SellerId = table.Column<int>(type: "int", nullable: true)
+                    SellerId = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -629,7 +624,7 @@ namespace ProSales.Repository.Migrations
                     DiscountTypeId = table.Column<long>(type: "bigint", nullable: true),
                     Discount = table.Column<double>(type: "double", nullable: false),
                     BrandId = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserCreatedId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CartId = table.Column<long>(type: "bigint", nullable: true),
@@ -686,7 +681,7 @@ namespace ProSales.Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ExternalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     SellerId = table.Column<int>(type: "int", nullable: false),
-                    DateSale = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     AmountProductSale = table.Column<double>(type: "double", nullable: false)
                 },
@@ -718,7 +713,7 @@ namespace ProSales.Repository.Migrations
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     BarCode = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -743,6 +738,7 @@ namespace ProSales.Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Value = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -758,75 +754,75 @@ namespace ProSales.Repository.Migrations
 
             migrationBuilder.InsertData(
                 table: "Brand",
-                columns: new[] { "Id", "CreatedDate", "ExternalId", "IsActive", "Name", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
-                values: new object[] { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4620), new Guid("e8ff8b84-e0a6-417f-9ec3-6fd695812bb4"), true, "Generic", null, null, null });
+                columns: new[] { "Id", "CreatedAt", "ExternalId", "IsActive", "Name", "UpdatedAt" },
+                values: new object[] { 1L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(8010), new Guid("63f78e3d-5576-4e68-8bb2-4100d6068918"), true, "Generic", null });
 
             migrationBuilder.InsertData(
                 table: "CalculationType",
                 columns: new[] { "Id", "ExternalId", "InternalProperty", "Name" },
                 values: new object[,]
                 {
-                    { 1L, new Guid("3bca5cda-5484-4a75-96b8-abc8a6f46ba4"), true, "SUM" },
-                    { 2L, new Guid("f20a36d7-beee-410c-99e9-25dd02c33f1e"), true, "PERCENT" },
-                    { 3L, new Guid("ac2c1ba4-e3f3-4b45-88f4-bb47eda5fcb1"), true, "SUBTRACTION" }
+                    { 1L, new Guid("1be54ac6-d2b8-4b2e-8f68-a8a2383bae60"), true, "SUM" },
+                    { 2L, new Guid("f3e94eec-3b05-4237-87e4-591eaf7dc778"), true, "PERCENT" },
+                    { 3L, new Guid("00cd64d7-fe7e-4eb3-ba44-52aadbd137e7"), true, "SUBTRACTION" }
                 });
 
             migrationBuilder.InsertData(
                 table: "ContactType",
-                columns: new[] { "Id", "CreatedDate", "ExternalId", "InternalProperty", "IsActive", "Name", "UpdatedDate", "UserUpdatedId" },
+                columns: new[] { "Id", "CreatedAt", "ExternalId", "InternalProperty", "IsActive", "Name", "UpdatedAt", "UserUpdatedId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4100), new Guid("5f50f08f-a1dc-4ffc-b042-aefa7e8ae1b2"), false, true, "Email Pessoal", null, null },
-                    { 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4160), new Guid("823ad161-55dd-4e0e-8fd8-bf5d1a438cab"), false, true, "Email Comercial", null, null },
-                    { 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4170), new Guid("153303ec-9b4b-4d66-b73e-44b600cedcdd"), false, true, "Celular Pessoal", null, null },
-                    { 4L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4180), new Guid("b823159e-dd31-46d3-9a8b-f73d19750976"), false, true, "Celular Comercial", null, null },
-                    { 5L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4190), new Guid("fc6d3304-7735-4f9f-87e9-9722fabe9eb1"), false, true, "Telefone Comercial", null, null },
-                    { 6L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4210), new Guid("ee783db2-54ab-4eaf-9449-0e46c2c2f703"), false, true, "Telefone Residencial", null, null },
-                    { 7L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4220), new Guid("565a12d7-73f6-420a-a840-017927a9c2a6"), false, true, "WhatsApp Comercial", null, null },
-                    { 8L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4230), new Guid("cc9192a9-3578-469f-a801-91644d4ca00c"), false, true, "WhatsApp Pessoal", null, null }
+                    { 1L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7630), new Guid("e2d16b9d-ce77-4405-9ab4-6d6dd79afe49"), false, true, "Email Pessoal", null, null },
+                    { 2L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7680), new Guid("e4ce4232-8727-464b-a25a-9921e3b01cab"), false, true, "Email Comercial", null, null },
+                    { 3L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7700), new Guid("f4960854-8056-4976-b41f-10e1e7d12a0f"), false, true, "Celular Pessoal", null, null },
+                    { 4L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7710), new Guid("85c3abb7-0685-4793-8a12-b8fcac90cf80"), false, true, "Celular Comercial", null, null },
+                    { 5L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7720), new Guid("61624f38-b11f-4b75-a89e-4660ddd0669a"), false, true, "Telefone Comercial", null, null },
+                    { 6L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7730), new Guid("6733b987-d249-4787-a982-6199d158e4a0"), false, true, "Telefone Residencial", null, null },
+                    { 7L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7740), new Guid("a5edfec7-7aee-4754-a07a-fd29816d90e2"), false, true, "WhatsApp Comercial", null, null },
+                    { 8L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7760), new Guid("6ba43640-392b-4048-9a21-fd986779ce69"), false, true, "WhatsApp Pessoal", null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "DocumentType",
-                columns: new[] { "Id", "CreatedDate", "ExternalId", "IsActive", "Name", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedAt", "ExternalId", "InternalProperty", "IsActive", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4350), new Guid("d71f43d7-7aeb-4c89-a678-f8c0c504fde4"), true, "RG", null },
-                    { 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4370), new Guid("c7f90a86-7efb-44ca-b187-01bc4ed8ad18"), true, "CPF", null },
-                    { 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4380), new Guid("67d6ef3f-55a9-482b-b1e4-b4139c72812d"), true, "CNPJ", null },
-                    { 4L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4390), new Guid("e045f443-6647-471c-ad6a-f9e597fa98f6"), true, "CNH", null },
-                    { 5L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4410), new Guid("0fc72a22-eedf-484f-bf20-a09529888103"), true, "Certidão de Nascimento", null },
-                    { 6L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4420), new Guid("41f1f63c-d52e-4823-9451-e5dc11a9b1d8"), true, "Certidão de Casamento", null },
-                    { 7L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4430), new Guid("d890214e-51c0-4a7d-b03e-402ceda80452"), true, "Foto do usuário", null }
+                    { 1L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7860), new Guid("c3fc653b-27e5-4f7c-a226-5f408a00be5f"), false, true, "RG", null },
+                    { 2L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7870), new Guid("8a68cabd-bd42-4928-bbd4-1edf8b2f5142"), false, true, "CPF", null },
+                    { 3L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7880), new Guid("88b520c5-26a4-4c01-926f-49b2682bfae8"), false, true, "CNPJ", null },
+                    { 4L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7900), new Guid("f50af1c0-9b03-4cb3-b46b-e59c519a2a59"), false, true, "CNH", null },
+                    { 5L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7910), new Guid("85281df8-788d-4657-9247-2e5c0aa24ea4"), false, true, "Certidão de Nascimento", null },
+                    { 6L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7920), new Guid("d7186016-bd0d-4e83-835a-2a4da220281a"), false, true, "Certidão de Casamento", null },
+                    { 7L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7930), new Guid("422ae6c1-43d5-464b-8232-8926f587d726"), false, true, "Foto do usuário", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "ProductType",
-                columns: new[] { "Id", "CreatedDate", "ExternalId", "InternalProperty", "TypeName", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
+                columns: new[] { "Id", "CreatedAt", "ExternalId", "InternalProperty", "TypeName", "UpdatedAt", "UserCreatedId", "UserUpdatedId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4700), new Guid("b9ab3201-c49c-4d2b-a37a-1dd63ff9e54a"), true, "Serviço", null, null, null },
-                    { 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4710), new Guid("1b9c14da-2172-4b48-88ad-73619fab45f7"), true, "Produto", null, null, null }
+                    { 1L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(8080), new Guid("d2567921-30ce-445f-bf3e-881e1c310aac"), true, "Serviço", null, null, null },
+                    { 2L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(8100), new Guid("4922947c-0768-40b7-b6b2-b528951fe684"), true, "Produto", null, null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "TypeCoin",
-                columns: new[] { "Id", "CreatedDate", "Description", "ExternalId", "Label", "Name", "UpdatedDate", "UserCreatedId", "UserUpdatedId" },
+                columns: new[] { "Id", "CreatedAt", "Description", "ExternalId", "InternalProperty", "Label", "Name", "UpdatedAt", "UserCreatedId", "UserUpdatedId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4460), null, new Guid("9769477e-841f-4f9f-9e02-ea6623246b6d"), "R$", "Real", null, null, null },
-                    { 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4470), null, new Guid("271766a6-1d3e-4853-9af5-5af884e59007"), "US$", "Dólar", null, null, null },
-                    { 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4480), null, new Guid("74927454-1a70-4bb2-9d27-d86e5616f01f"), "€", "Euro", null, null, null }
+                    { 1L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7960), null, new Guid("66a7cfc1-a6e5-4df0-af8e-cddc3eef00d1"), false, "R$", "Real", null, null, null },
+                    { 2L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7970), null, new Guid("62427ebc-7ad5-4b20-b6e9-fd353193ffb9"), false, "US$", "Dólar", null, null, null },
+                    { 3L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(7990), null, new Guid("03621496-3a10-447f-be98-10e60ac78c8c"), false, "€", "Euro", null, null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "DiscountType",
-                columns: new[] { "Id", "CalculationTypeId", "CreatedDate", "ExternalId", "IsActive", "Name", "UpdatedDate", "Value" },
+                columns: new[] { "Id", "CalculationTypeId", "CreatedAt", "ExternalId", "InternalProperty", "IsActive", "Name", "UpdatedAt", "Value" },
                 values: new object[,]
                 {
-                    { 1L, 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4650), new Guid("3199ee31-a6b0-4345-9e65-e3ee89c8f774"), true, "Gerente", null, 0.0 },
-                    { 2L, 3L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4660), new Guid("5bf2adb3-1dfb-4743-8946-5c5f6b04ed6d"), true, "Cupom", null, 0.0 },
-                    { 3L, 2L, new DateTime(2022, 11, 22, 16, 29, 49, 365, DateTimeKind.Local).AddTicks(4670), new Guid("9e500b36-95ef-43c7-a703-fee642cb0bdc"), true, "Pgamento a vista", null, 0.14999999999999999 }
+                    { 1L, 3L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(8030), new Guid("d3c4ca3b-805b-4682-b599-04f7e3897313"), false, true, "Gerente", null, 0.0 },
+                    { 2L, 3L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(8050), new Guid("94bf9ab5-a83d-46e4-97b7-db5db8e2aec7"), false, true, "Cupom", null, 0.0 },
+                    { 3L, 2L, new DateTime(2022, 11, 24, 2, 22, 12, 613, DateTimeKind.Local).AddTicks(8060), new Guid("d4d8ea48-4086-4091-b1b9-0bba99b9e3b1"), false, true, "Pgamento a vista", null, 0.14999999999999999 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -880,16 +876,6 @@ namespace ProSales.Repository.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Brand_UserCreatedId",
-                table: "Brand",
-                column: "UserCreatedId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Brand_UserUpdatedId",
-                table: "Brand",
-                column: "UserUpdatedId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cart_ClientId",

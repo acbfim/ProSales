@@ -70,9 +70,7 @@ namespace ProSales.Application
                 if (brandFoundByName is not null)
                     return RetornoDto.objectDuplicaded(_mapper.Map<BrandDto>(brandFoundByName));
 
-
-                //brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                brandFound.UpdatedDate = DateTime.Now;
+                brandFound.UpdatedAt = DateTime.Now;
                 brandFound.Name = brand.Name;
 
                 _globalRepo.Update(brandFound);
@@ -98,7 +96,7 @@ namespace ProSales.Application
                     return RetornoDto.objectNotFound();
 
                 //brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                brandFound.UpdatedDate = DateTime.Now;
+                brandFound.UpdatedAt = DateTime.Now;
 
                 brandFound.IsActive = !brandFound.IsActive;
 

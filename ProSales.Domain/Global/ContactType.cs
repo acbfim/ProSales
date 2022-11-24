@@ -16,11 +16,11 @@ namespace ProSales.Domain.Global
         [Column(TypeName = "varchar(50)")]
         [StringLength(50)]
         public string Name { get; set; }
-        public bool InternalProperty { get; set; }
+        public bool InternalProperty { get; set; } = false;
         public bool IsActive { get; set; } = true;
 
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
         public User? UserUpdated { get; set; }
 
     }

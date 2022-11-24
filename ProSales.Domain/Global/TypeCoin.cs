@@ -25,9 +25,11 @@ namespace ProSales.Domain.Global
         [StringLength(100)]
         public string Label { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public User? UserCreated { get; set; }
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public User? UserUpdated { get; set; }
+
+        public bool InternalProperty { get; set; } = false;
     }
 }

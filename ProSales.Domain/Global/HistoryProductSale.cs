@@ -11,7 +11,7 @@ namespace ProSales.Domain.Global
         public long Id { get; set; }
         public Guid ExternalId { get; set; } = Guid.NewGuid();
         public User Seller { get; set; }
-        public DateTime DateSale { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public Product Product { get; set; }
         public double AmountProductSale { get; set; }
     }

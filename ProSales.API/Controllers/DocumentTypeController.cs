@@ -38,7 +38,7 @@ public class DocumentTypeController : ControllerBase
     /// Get Item by Name
     /// </summary>
     /// <param name= "Name"></param>
-    [HttpGet("by-name-id/{name}")]
+    [HttpGet("by-name/{name}")]
     public async Task<IActionResult> GetBrandByName(string name)
     {
         var ret = this.service.GetByName(name).Result;
@@ -79,7 +79,7 @@ public class DocumentTypeController : ControllerBase
     /// Put toogle alter status active
     /// </summary>
     /// <param name= "externalId"></param>
-    [HttpPut("toggleStatus/byExternalId/{externalId}")]
+    [HttpPut("toggleStatus/by-external-id/{externalId}")]
     public async Task<IActionResult> ToogleAlterStatus(Guid externalId)
     {
         var ret = this.service.ToogleAlterStatus(externalId).Result;
