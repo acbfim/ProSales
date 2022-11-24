@@ -14,40 +14,40 @@ using ProSales.Repository.Contracts;
 
 namespace ProSales.Repository
 {
-    public class BrandRepository : IBrandRepository
+    public class ProductTypeRepository : IProductTypeRepository
     {
         private readonly ProSalesContext context;
 
-        public BrandRepository(ProSalesContext context )
+        public ProductTypeRepository(ProSalesContext context )
         {
             this.context = context;
         }
-        public async Task<Brand> GetBrandByExternalId(Guid externalId)
+        public async Task<ProductType> GetByExternalId(Guid externalId)
         {
-            IQueryable<Brand> query = this.context.Brand.AsNoTracking();
+            IQueryable<ProductType> query = this.context.ProductType.AsNoTracking();
 
             return await query.FirstOrDefaultAsync(x => x.ExternalId == externalId);
         }
 
-        public async Task<Brand> GetBrandById(long id)
+        public async Task<ProductType> GetById(long id)
         {
-            IQueryable<Brand> query = this.context.Brand.AsNoTracking();
+            IQueryable<ProductType> query = this.context.ProductType.AsNoTracking();
 
             return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Brand> GetBrandByName(string name)
+        public async Task<ProductType> GetByName(string name)
         {
-            IQueryable<Brand> query = this.context.Brand.AsNoTracking();
+            IQueryable<ProductType> query = this.context.ProductType.AsNoTracking();
 
             return await query.FirstOrDefaultAsync(x => x.Name.ToUpper() == name.ToUpper());
         }
 
-        public async Task<ICollection<Brand>> GetAllBrandByQuery(BrandQuery query)
+        public async Task<ICollection<ProductType>> GetAllByQuery(ProductTypeQuery query)
         {
             var newSkip = query.Skip == 0 ? 0 : (query.Skip*query.Take);
 
-            var result = this.context.Brand.AsQueryable()
+            var result = this.context.ProductType.AsQueryable()
             .Skip(newSkip)
             .Take((int)query.Take);
 
@@ -57,9 +57,9 @@ namespace ProSales.Repository
             return await result.ToListAsync();
         }
 
-        public async Task<long> GetCountItems(BrandQuery query)
+        public async Task<long> GetCountItems(ProductTypeQuery query)
         {
-            var result = this.context.Brand.AsQueryable().AsNoTracking();
+            var result = this.context.ProductType.AsQueryable().AsNoTracking();
 
             result = result
             .Filter(query).Sort(query);

@@ -22,5 +22,6 @@ namespace ProSales.Domain.Dtos
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid CalculationTypeExternalId { get; set; }
         public bool IsActive { get; set; }
+        public bool InternalProperty { get; set; }
     }
 }

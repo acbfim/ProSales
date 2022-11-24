@@ -59,7 +59,7 @@ namespace ProSales.Repository
 
         public async Task<long> GetCountItems(ContactTypeQuery query)
         {
-            var result = this.context.ContactType.AsQueryable();
+            var result = this.context.ContactType.AsQueryable().AsNoTracking();
 
             result = result
             .Filter(query).Sort(query);

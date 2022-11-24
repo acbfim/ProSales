@@ -59,7 +59,7 @@ namespace ProSales.Repository
 
         public async Task<long> GetCountItems(DocumentTypeQuery query)
         {
-            var result = this.context.DocumentType.AsQueryable();
+            var result = this.context.DocumentType.AsQueryable().AsNoTracking();
 
             result = result
             .Filter(query).Sort(query);

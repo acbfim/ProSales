@@ -12,10 +12,13 @@ namespace ProSales.Domain.Dtos
         public string Message { get; set; } = "Erro ao realizar ação";
         public bool Success { get; set; } = false;
         public int StatusCode { get; set; }
+
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public long? TotalItems { get; set; } = 0;
+
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? Page { get; set; } = "0";
+        
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Object Data { get; set; }
         

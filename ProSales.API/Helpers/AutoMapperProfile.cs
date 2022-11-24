@@ -30,6 +30,9 @@ namespace ProSales.API.Helpers
 
             CreateMap<DocumentType, CreateDocumentTypeDto>().ReverseMap();
             CreateMap<DocumentType, DocumentTypeDto>().ReverseMap();
+
+            CreateMap<ProductType, CreateProductTypeDto>().ReverseMap();
+            CreateMap<ProductType, ProductTypeDto>().ReverseMap();
         }
         
     }

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ProSales.Domain.Global;
-using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Dtos
 {
-    public class CalculationTypeDto
+    public class CreateProductTypeDto
     {
-        public Guid ExternalId { get; set; }
+
+        [Required(ErrorMessage ="O campo é obrigatório")]
+        [StringLength(50)]
         public string Name { get; set; }
-        public bool InternalProperty { get; set; }
     }
 }

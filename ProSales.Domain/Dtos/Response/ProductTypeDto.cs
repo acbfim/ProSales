@@ -9,10 +9,11 @@ using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Dtos
 {
-    public class CalculationTypeDto
+    public class ProductTypeDto
     {
         public Guid ExternalId { get; set; }
         public string Name { get; set; }
+        public bool IsActive { get; set; }
         public bool InternalProperty { get; set; }
     }
 }

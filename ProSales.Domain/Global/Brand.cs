@@ -14,11 +14,10 @@ namespace ProSales.Domain.Global
         public Guid ExternalId { get; set; } = Guid.NewGuid();
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }
-        
-
         [Column(TypeName = "varchar(20)")]
         [StringLength(20)]
         public string Name { get; set; }
         public bool IsActive { get; set; } = true;
+        public bool InternalProperty { get; set; } = false;
     }
 }

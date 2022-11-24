@@ -8,7 +8,7 @@ using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Global
 {
-    public class TypeCoin
+    public class CoinType
     {
         public long Id { get; set; }
         public Guid ExternalId { get; set; } = Guid.NewGuid();
@@ -29,7 +29,7 @@ namespace ProSales.Domain.Global
         public User? UserCreated { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public User? UserUpdated { get; set; }
-
+        public bool IsActive { get; set; } = true;
         public bool InternalProperty { get; set; } = false;
     }
 }

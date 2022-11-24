@@ -12,7 +12,7 @@ namespace ProSales.Domain.Global
         public DateTime EffectiveDate { get; set; }
         public Client? Client { get; set; }
         public ICollection<Product>? Products { get; set; }
-        public TypeCoin TypeCoin { get; set; }
+        public CoinType CoinType { get; set; }
         public double Amount { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

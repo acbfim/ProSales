@@ -65,7 +65,7 @@ namespace ProSales.Repository
 
         public async Task<long> GetCountItems(DiscountTypeQuery query)
         {
-            var result = this.context.DiscountType.AsQueryable();
+            var result = this.context.DiscountType.AsQueryable().AsNoTracking();
 
             result = result
             .Filter(query).Sort(query);
