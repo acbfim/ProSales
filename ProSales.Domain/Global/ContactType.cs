@@ -21,7 +21,10 @@ namespace ProSales.Domain.Global
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }
+        public User? UserCreated { get; set; }
         public User? UserUpdated { get; set; }
+        public int? UserCreatedId { get; set; }
+        public int? UserUpdatedId { get; set; }
 
     }
 }

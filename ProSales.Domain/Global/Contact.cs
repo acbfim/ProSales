@@ -12,12 +12,24 @@ namespace ProSales.Domain.Global
     {
         public long Id { get; set; }
         public Guid ExternalId { get; set; } = Guid.NewGuid();
+
+        public long ContactTypeId { get; set; }
         public ContactType Type { get; set; }
 
         [Column(TypeName = "varchar(100)")]
-        [StringLength(100)]
         public string Value { get; set; }
+
+        public long ClientId { get; set; }
+        public Client Client { get; set; }
+        
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
+        public int? UserCreatedId { get; set; }
+        public int? UserUpdatedId { get; set; }
+        public User? UserCreated { get; set; }
+        public User? UserUpdated { get; set; }
+
+        public bool IsActive { get; set; } = true;
 
     }
 }

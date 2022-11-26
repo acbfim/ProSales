@@ -42,7 +42,7 @@ namespace ProSales.Application
 
                 var brand = _mapper.Map<Brand>(createBrand);
 
-                //brand.UserCreatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                brand.UserCreatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 _globalRepo.Add(brand);
 
                 if (await _globalRepo.SaveChangesAsync())
@@ -66,10 +66,14 @@ namespace ProSales.Application
                 if (brandFound is null)
                     return RetornoDto.objectNotFound();
 
+                if (brandFound.InternalProperty)
+                    return RetornoDto.unauthorized("Não é possível atualizar uma propriedade interna do sistema.");
+
                 var brandFoundByName = this.BrandRepository.GetBrandByName(brand.Name).Result;
                 if (brandFoundByName is not null)
                     return RetornoDto.objectDuplicaded(_mapper.Map<BrandDto>(brandFoundByName));
 
+                brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 brandFound.UpdatedAt = DateTime.Now;
                 brandFound.Name = brand.Name;
 
@@ -95,7 +99,10 @@ namespace ProSales.Application
                 if (brandFound == null)
                     return RetornoDto.objectNotFound();
 
-                //brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                if (brandFound.InternalProperty)
+                    return RetornoDto.unauthorized("Não é possível desativar uma propriedade interna do sistema.");
+
+                brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 brandFound.UpdatedAt = DateTime.Now;
 
                 brandFound.IsActive = !brandFound.IsActive;

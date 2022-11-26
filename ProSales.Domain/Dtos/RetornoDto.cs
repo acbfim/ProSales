@@ -60,6 +60,18 @@ namespace ProSales.Domain.Dtos
             return ret;
         }
 
+        public static RetornoDto unauthorized(string message = ""){
+            RetornoDto ret = new RetornoDto();
+            ret.Message = message == "" ? "Sem permissão" : message;
+            ret.Success = false;
+            ret.StatusCode = StatusCodes.Status401Unauthorized;
+
+            ret.TotalItems = null;
+            ret.Page = null;
+            ret.Data = null;
+            return ret;
+        }
+
         public static RetornoDto objectCreateSuccess(Object obj){
             RetornoDto ret = new RetornoDto();
             ret.Message = "Criado com sucesso";
@@ -81,6 +93,17 @@ namespace ProSales.Domain.Dtos
             ret.Page = null;
 
             ret.Data = obj;
+            return ret;
+        }
+
+        public static RetornoDto objectDeletedSuccess(string message = ""){
+            RetornoDto ret = new RetornoDto();
+            ret.Message = message == "" ? "Deletado com sucesso" : message;
+            ret.Success = true;
+            ret.StatusCode = StatusCodes.Status200OK;
+            ret.TotalItems = null;
+            ret.Page = null;
+
             return ret;
         }
 

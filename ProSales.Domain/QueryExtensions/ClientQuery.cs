@@ -9,16 +9,15 @@ using AspNetCore.IQueryable.Extensions.Attributes;
 using AspNetCore.IQueryable.Extensions.Filter;
 using AspNetCore.IQueryable.Extensions.Pagination;
 using AspNetCore.IQueryable.Extensions.Sort;
-using ProSales.Domain.Global;
 using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Dtos
 {
-    public class ProductTypeQuery : ICustomQueryable, IQuerySort
+    public class ClientQuery : ICustomQueryable, IQuerySort
     {
         [QueryOperator(Operator = WhereOperator.Contains)]
         //[QueryOperator(Operator = WhereOperator.GreaterThanOrEqualTo)]...
-        public string? Name { get; set; }
+        public string? FullName { get; set; }
         public Guid? ExternalId { get; set; }
         public string? Sort { get; set; }
         public int Skip { get; set; } = 0;

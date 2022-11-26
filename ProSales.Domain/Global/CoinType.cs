@@ -29,6 +29,9 @@ namespace ProSales.Domain.Global
         public User? UserCreated { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public User? UserUpdated { get; set; }
+        public int? UserCreatedId { get; set; }
+        public int? UserUpdatedId { get; set; }
+        
         public bool IsActive { get; set; } = true;
         public bool InternalProperty { get; set; } = false;
     }

@@ -42,7 +42,7 @@ namespace ProSales.Application
 
                 var createMappedItem = _mapper.Map<DocumentType>(createItem);
 
-                //createMappedItem.UserCreatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                createMappedItem.UserCreatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 _globalRepo.Add(createMappedItem);
 
                 if (await _globalRepo.SaveChangesAsync())
@@ -66,12 +66,15 @@ namespace ProSales.Application
                 if (itemFound is null)
                     return RetornoDto.objectNotFound();
 
+                if (itemFound.InternalProperty)
+                    return RetornoDto.unauthorized("Não é possível atualizar uma propriedade interna do sistema.");
+
                 var itemFoundByName = this.Repo.GetByName(update.Name).Result;
                 if (itemFoundByName is not null)
                     return RetornoDto.objectDuplicaded(_mapper.Map<DocumentTypeDto>(itemFoundByName));
 
 
-                //itemFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                itemFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 itemFound.UpdatedAt = DateTime.Now;
                 itemFound.Name = update.Name;
 
@@ -96,8 +99,11 @@ namespace ProSales.Application
                 var itemFound = this.Repo.GetByExternalId(externalId).Result;
                 if (itemFound == null)
                     return RetornoDto.objectNotFound();
+                
+                if (itemFound.InternalProperty)
+                    return RetornoDto.unauthorized("Não é possível desativar uma propriedade interna do sistema.");
 
-                //itemFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                itemFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 itemFound.UpdatedAt = DateTime.Now;
 
                 itemFound.IsActive = !itemFound.IsActive;

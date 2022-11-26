@@ -36,6 +36,9 @@ namespace ProSales.Repository.Contexts
         public DbSet<Specification> Specification { get; set; }
         public DbSet<CalculationType> CalculationType { get; set; }
         public DbSet<CoinType> CoinType { get; set; }
+        public DbSet<ProductCart> ProductCart { get; set; }
+        public DbSet<ProductOrder> ProductOrder { get; set; }
+        public DbSet<ProductSale> ProductSale { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,6 +59,42 @@ namespace ProSales.Repository.Contexts
                 .HasOne(x => x.User)
                 .WithMany(r => r.UserRoles)
                 .HasForeignKey(fk => fk.UserId)
+                .IsRequired();
+            }
+            );
+
+            modelBuilder.Entity<ProductCart>(ur =>
+            {
+                ur.HasKey(k => new { k.ProductId, k.CartId });
+
+                ur
+                .HasOne(x => x.Product)
+                .WithMany(r => r.ProductsCart)
+                .HasForeignKey(fk => fk.ProductId)
+                .IsRequired();
+
+                ur
+                .HasOne(x => x.Cart)
+                .WithMany(r => r.ProductsCart)
+                .HasForeignKey(fk => fk.CartId)
+                .IsRequired();
+            }
+            );
+
+            modelBuilder.Entity<ProductOrder>(ur =>
+            {
+                ur.HasKey(k => new { k.ProductId, k.OrderId });
+
+                ur
+                .HasOne(x => x.Product)
+                .WithMany(r => r.ProductsOrder)
+                .HasForeignKey(fk => fk.ProductId)
+                .IsRequired();
+
+                ur
+                .HasOne(x => x.Order)
+                .WithMany(r => r.ProductsOrder)
+                .HasForeignKey(fk => fk.OrderId)
                 .IsRequired();
             }
             );

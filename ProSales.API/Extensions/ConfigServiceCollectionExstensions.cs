@@ -18,8 +18,17 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IGlobalRepository, GlobalRepository>();
 
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IBrandRepository, BrandRepository>();
+
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICartService, CartService>();
+
+
+            services.AddScoped<IClientRepository, ClientRepository>();
             
             services.AddScoped<ICalculationTypeRepository, CalculationTypeRepository>();
 
@@ -31,6 +40,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IDocumentTypeService, DocumentTypeService>();
             services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            //services.AddScoped<IProductService, ProductService>();
 
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<IProductTypeRepository, ProductTypeRepository>();

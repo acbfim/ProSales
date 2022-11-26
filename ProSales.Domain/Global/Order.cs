@@ -9,11 +9,19 @@ namespace ProSales.Domain.Global
     {
         public long Id { get; set; }
         public Guid ExternalId { get; set; } = Guid.NewGuid();
-        public DateTime EffectiveDate { get; set; }
-        public Client? Client { get; set; }
-        public ICollection<Product>? Products { get; set; }
-        public CoinType CoinType { get; set; }
+
         public double Amount { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        public long ClientId { get; set; }
+        public Client? Client { get; set; }
+        public long CoinTypeId { get; set; }
+        public CoinType CoinType { get; set; }
+
+        public ICollection<ProductOrder>? ProductsOrder { get; set; }
+        
+
+
+
+
     }
 }

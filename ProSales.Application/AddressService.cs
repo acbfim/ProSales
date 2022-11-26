@@ -1,74 +1,66 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Security.Claims;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using ProSales.Application.Contracts;
 using ProSales.Domain.Dtos;
 using ProSales.Domain.Global;
-using ProSales.Repository.Contexts;
 using ProSales.Repository.Contracts;
 
 namespace ProSales.Application
 {
-    public class DiscountTypeService : IDiscountTypeService
+    public class AddressService : IAddressService
     {
 
         private readonly IHttpContextAccessor _accessor;
         private readonly IMapper _mapper;
         private readonly IGlobalRepository _globalRepo;
-        private readonly IDiscountTypeRepository Repo;
+        private readonly IAddressRepository Repo;
 
-        public ICalculationTypeRepository CalculationRepo { get; }
+        public IClientRepository ClientRepo { get; }
 
-        public DiscountTypeService(IHttpContextAccessor Accessor, IMapper Mapper
+        public AddressService(IHttpContextAccessor Accessor, IMapper Mapper
         , IGlobalRepository GlobalRepo
-        , IDiscountTypeRepository Repo
-        , ICalculationTypeRepository CalculationRepo)
+        , IAddressRepository Repo
+        , IClientRepository ClientRepo)
         {
             this.Repo = Repo;
-            this.CalculationRepo = CalculationRepo;
+            this.ClientRepo = ClientRepo;
             _accessor = Accessor;
             _mapper = Mapper;
             _globalRepo = GlobalRepo;
         }
 
-        public async Task<RetornoDto> Create(CreateDiscountTypeDto createItem)
+        public async Task<RetornoDto> Create(CreateAddressDto createItem)
         {
             try
             {
-                var itemFound = this.Repo.GetByName(createItem.Name).Result;
-                if (itemFound is not null)
-                    return RetornoDto.objectDuplicaded(_mapper.Map<DiscountTypeDto>(itemFound));
+                var clientFound = this.ClientRepo.GetByExternalId(createItem.Client.ExternalId).Result;
 
-                var calculateItemFound = await this.CalculationRepo.GetByExternalId(createItem.CalculationTypeExternalId);
-                if (calculateItemFound is null)
-                    return RetornoDto.objectNotFound("CalculationTypeId não encontrado.");
+                if (clientFound == null)
+                    return RetornoDto.objectNotFound("Cliente não localizado pela externalId");
 
-                var createMappedItem = _mapper.Map<DiscountType>(createItem);
-
-                createMappedItem.CalculationType = null;
-                createMappedItem.CalculationTypeId = calculateItemFound.Id;
+                var createMappedItem = _mapper.Map<Address>(createItem);
 
                 createMappedItem.UserCreatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                createMappedItem.ClientId = clientFound.Id;
+
                 _globalRepo.Add(createMappedItem);
 
                 if (await _globalRepo.SaveChangesAsync())
-                    return RetornoDto.objectCreateSuccess(_mapper.Map<DiscountTypeDto>(createMappedItem));
+                    return RetornoDto.objectCreateSuccess(_mapper.Map<AddressDto>(createMappedItem));
 
                 throw new Exception();
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
                 return RetornoDto.objectGenericError(ex);
             }
         }
 
-        public async Task<RetornoDto> Update(DiscountTypeDto update)
+        public async Task<RetornoDto> Update(AddressDto update)
         {
             try
             {
@@ -76,26 +68,21 @@ namespace ProSales.Application
                 if (itemFound is null)
                     return RetornoDto.objectNotFound();
 
-                if (itemFound.InternalProperty)
-                    return RetornoDto.unauthorized("Não é possível atualizar uma propriedade interna do sistema.");
-
-                var itemFoundByName = this.Repo.GetByName(update.Name).Result;
-                if (itemFoundByName is not null)
-                    return RetornoDto.objectDuplicaded(_mapper.Map<DiscountTypeDto>(itemFoundByName));
-
-                var calculateItemFound = await this.CalculationRepo.GetByExternalId(update.CalculationTypeExternalId);
-                if (calculateItemFound is null)
-                    return RetornoDto.objectNotFound("Tipo do desconto não encontrado.");
-
-                itemFound.CalculationTypeId = calculateItemFound.Id;
                 itemFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 itemFound.UpdatedAt = DateTime.Now;
-                itemFound.Name = update.Name;
+                itemFound.City = update.City;
+                itemFound.State = update.State;
+                itemFound.Street = update.Street;
+                itemFound.ReferencePoint = update.ReferencePoint;
+                itemFound.Country = update.Country;
+                itemFound.ZipCode = update.ZipCode;
+                itemFound.Number = update.Number;
+
 
                 _globalRepo.Update(itemFound);
 
                 if (await _globalRepo.SaveChangesAsync())
-                    return RetornoDto.objectUpdateSuccess(_mapper.Map<DiscountTypeDto>(update));
+                    return RetornoDto.objectUpdateSuccess(_mapper.Map<AddressDto>(update));
 
                 throw new Exception();
             }
@@ -114,9 +101,6 @@ namespace ProSales.Application
                 if (itemFound == null)
                     return RetornoDto.objectNotFound();
 
-                if (itemFound.InternalProperty)
-                    return RetornoDto.unauthorized("Não é possível desativar uma propriedade interna do sistema.");
-
                 itemFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 itemFound.UpdatedAt = DateTime.Now;
 
@@ -125,7 +109,7 @@ namespace ProSales.Application
                 _globalRepo.Update(itemFound);
 
                 if (await _globalRepo.SaveChangesAsync())
-                    return RetornoDto.objectUpdateSuccess(_mapper.Map<DiscountTypeDto>(itemFound));
+                    return RetornoDto.objectUpdateSuccess(_mapper.Map<AddressDto>(itemFound));
 
                 throw new Exception();
             }
@@ -145,7 +129,7 @@ namespace ProSales.Application
                 if (itemFound == null)
                     return RetornoDto.objectNotFound();
 
-                return RetornoDto.objectFoundSuccess(_mapper.Map<DiscountTypeDto>(itemFound));
+                return RetornoDto.objectFoundSuccess(_mapper.Map<AddressDto>(itemFound));
             }
             catch (Exception ex)
             {
@@ -163,7 +147,7 @@ namespace ProSales.Application
                 if (itemFound == null)
                     return RetornoDto.objectNotFound();
 
-                return RetornoDto.objectFoundSuccess(_mapper.Map<DiscountTypeDto>(itemFound));
+                return RetornoDto.objectFoundSuccess(_mapper.Map<AddressDto>(itemFound));
             }
             catch (Exception ex)
             {
@@ -172,25 +156,7 @@ namespace ProSales.Application
             }
         }
 
-        public async Task<RetornoDto> GetByName(string name)
-        {
-            try
-            {
-                var itemFound = this.Repo.GetByName(name).Result;
-
-                if (itemFound == null)
-                    return RetornoDto.objectNotFound();
-
-                return RetornoDto.objectFoundSuccess(_mapper.Map<DiscountTypeDto>(itemFound));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-                return RetornoDto.objectGenericError(ex);
-            }
-        }
-
-        public async Task<RetornoDto> GetAllByQuery(DiscountTypeQuery query)
+        public async Task<RetornoDto> GetAllByQuery(AddressQuery query)
         {
             try
             {
@@ -201,7 +167,7 @@ namespace ProSales.Application
 
                 var totalItems = await this.Repo.GetCountItems(query);
 
-                return RetornoDto.objectsFoundSuccess(_mapper.Map<ICollection<DiscountTypeDto>>(itemFound), query.Skip, query.Take, totalItems);
+                return RetornoDto.objectsFoundSuccess(_mapper.Map<ICollection<AddressDto>>(itemFound),query.Skip,query.Take,totalItems);
             }
             catch (Exception ex)
             {
