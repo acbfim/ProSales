@@ -13,6 +13,7 @@ namespace ProSales.API.Controllers;
 //[AllowAnonymous]
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles = "Admin,admin,administrador,Administrador")]
 public class BrandController : ControllerBase
 {
     private readonly IBrandService brandService;
@@ -27,7 +28,7 @@ public class BrandController : ControllerBase
     /// Get Brand by ExternalID
     /// </summary>
     /// <param name= "ExternalId"></param>
-    [HttpGet("{externalId}")]
+    [HttpGet("by-external-id/{externalId}")]
     public async Task<IActionResult> getByExternalId(Guid externalId)
     {
         var ret = this.brandService.GetBrandByExternalId(externalId).Result;
@@ -38,7 +39,7 @@ public class BrandController : ControllerBase
     /// Get Brand by Name
     /// </summary>
     /// <param name= "Name"></param>
-    [HttpGet("{name}")]
+    [HttpGet("by-name/{name}")]
     public async Task<IActionResult> GetBrandByName(string name)
     {
         var ret = this.brandService.GetBrandByName(name).Result;
@@ -48,21 +49,10 @@ public class BrandController : ControllerBase
     /// <summary>
     /// Get Brand by Query
     /// </summary>
-    [HttpGet]
+    [HttpGet("by-query")]
     public async Task<IActionResult> GetAllBrandByQuery([FromQuery] BrandQuery query)
     {
         var ret = this.brandService.GetAllBrandByQuery(query).Result;
-        return StatusCode(ret.StatusCode, ret);
-    }
-
-    /// <summary>
-    /// Get Brand by Id
-    /// </summary>
-    /// <param name= "Id"></param>
-    [HttpGet("GetById/{id}")]
-    public async Task<IActionResult> GetBrandById(long id)
-    {
-        var ret = this.brandService.GetBrandById(id).Result;
         return StatusCode(ret.StatusCode, ret);
     }
 
@@ -90,7 +80,7 @@ public class BrandController : ControllerBase
     /// Put toogle alter status active Brand
     /// </summary>
     /// <param name= "externalId"></param>
-    [HttpPut("toggleStatus/byExternalId/{externalId}")]
+    [HttpPut("toggleStatus/by-external-id/{externalId}")]
     public async Task<IActionResult> putToogleDesactivate(Guid externalId)
     {
         var ret = this.brandService.ToggleDesactivateBrand(externalId).Result;

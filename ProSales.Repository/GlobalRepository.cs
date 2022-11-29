@@ -22,7 +22,7 @@ public class GlobalRepository : IGlobalRepository
         _context.AddAsync(entity);
     }
 
-    public void AddRange<T>(T[] entities) where T : class
+    public void AddRange<T>(IEnumerable<T> entities) where T : class
     {
         _context.AddRangeAsync(entities);
     }
@@ -32,7 +32,7 @@ public class GlobalRepository : IGlobalRepository
         _context.Remove(entity);
     }
 
-    public void DeleteRange<T>(T[] entities) where T : class
+    public void DeleteRange<T>(IEnumerable<T> entities) where T : class
     {
         _context.RemoveRange(entities);
     }
@@ -42,7 +42,7 @@ public class GlobalRepository : IGlobalRepository
         _context.Update(entity);
     }
 
-    public void UpdateRange<T>(T[] entities) where T : class
+    public void UpdateRange<T>(IEnumerable<T> entities) where T : class
     {
         _context.UpdateRange(entities);
     }

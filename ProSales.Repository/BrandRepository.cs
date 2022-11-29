@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AspNetCore.IQueryable.Extensions;
 using AspNetCore.IQueryable.Extensions.Filter;
 using AspNetCore.IQueryable.Extensions.Pagination;
+using AspNetCore.IQueryable.Extensions.Sort;
 using Microsoft.EntityFrameworkCore;
 using ProSales.Domain.Dtos;
 using ProSales.Domain.Global;
@@ -44,9 +45,26 @@ namespace ProSales.Repository
 
         public async Task<ICollection<Brand>> GetAllBrandByQuery(BrandQuery query)
         {
-            var result = this.context.Brand.AsQueryable().Filter(query).Apply(query);
+            var newSkip = query.Skip == 0 ? 0 : (query.Skip*query.Take);
+
+            var result = this.context.Brand.AsQueryable()
+            .Skip(newSkip)
+            .Take((int)query.Take);
+
+            result = result
+            .Filter(query).Sort(query);
 
             return await result.ToListAsync();
+        }
+
+        public async Task<long> GetCountItems(BrandQuery query)
+        {
+            var result = this.context.Brand.AsQueryable().AsNoTracking();
+
+            result = result
+            .Filter(query).Sort(query);
+
+            return result.Count();
         }
     }
 }

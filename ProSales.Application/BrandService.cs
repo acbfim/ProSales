@@ -38,7 +38,7 @@ namespace ProSales.Application
                 var brandFound = this.BrandRepository.GetBrandByName(createBrand.Name).Result;
 
                 if (brandFound != null)
-                    return RetornoDto.objectDuplicaded(brandFound);
+                    return RetornoDto.objectDuplicaded(_mapper.Map<BrandDto>(brandFound));
 
                 var brand = _mapper.Map<Brand>(createBrand);
 
@@ -66,13 +66,15 @@ namespace ProSales.Application
                 if (brandFound is null)
                     return RetornoDto.objectNotFound();
 
+                if (brandFound.InternalProperty)
+                    return RetornoDto.unauthorized("Não é possível atualizar uma propriedade interna do sistema.");
+
                 var brandFoundByName = this.BrandRepository.GetBrandByName(brand.Name).Result;
                 if (brandFoundByName is not null)
-                    return RetornoDto.objectDuplicaded(brandFoundByName);
-
+                    return RetornoDto.objectDuplicaded(_mapper.Map<BrandDto>(brandFoundByName));
 
                 brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                brandFound.UpdatedDate = DateTime.Now;
+                brandFound.UpdatedAt = DateTime.Now;
                 brandFound.Name = brand.Name;
 
                 _globalRepo.Update(brandFound);
@@ -97,8 +99,11 @@ namespace ProSales.Application
                 if (brandFound == null)
                     return RetornoDto.objectNotFound();
 
+                if (brandFound.InternalProperty)
+                    return RetornoDto.unauthorized("Não é possível desativar uma propriedade interna do sistema.");
+
                 brandFound.UserUpdatedId = Int32.Parse(_accessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                brandFound.UpdatedDate = DateTime.Now;
+                brandFound.UpdatedAt = DateTime.Now;
 
                 brandFound.IsActive = !brandFound.IsActive;
 
@@ -179,7 +184,9 @@ namespace ProSales.Application
                 if (brandFound == null)
                     return RetornoDto.objectNotFound();
 
-                return RetornoDto.objectFoundSuccess(_mapper.Map<ICollection<BrandDto>>(brandFound));
+                var totalItems = await this.BrandRepository.GetCountItems(query);
+
+                return RetornoDto.objectsFoundSuccess(_mapper.Map<ICollection<BrandDto>>(brandFound),query.Skip,query.Take,totalItems);
             }
             catch (Exception ex)
             {

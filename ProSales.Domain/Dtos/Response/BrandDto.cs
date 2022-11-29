@@ -10,8 +10,10 @@ namespace ProSales.Domain.Dtos
 {
     public class BrandDto
     {
-        public string Name { get; set; }
         public Guid ExternalId { get; set; }
+        
+        public string Name { get; set; }
         public bool IsActive { get; set; }
+        public bool InternalProperty { get; set; }
     }
 }

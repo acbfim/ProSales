@@ -13,14 +13,14 @@ using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Dtos
 {
-    public class BrandQuery : ICustomQueryable, IQueryPaging, IQuerySort
+    public class BrandQuery : ICustomQueryable, IQuerySort
     {
         [QueryOperator(Operator = WhereOperator.Contains)]
         //[QueryOperator(Operator = WhereOperator.GreaterThanOrEqualTo)]...
         public string? Name { get; set; }
         public Guid? ExternalId { get; set; }
-        public int? Limit { get; set; } = 50;
-        public int? Offset { get; set; }
         public string? Sort { get; set; }
+        public int Skip { get; set; } = 0;
+        public int Take { get; set; } = 50;
     }
 }

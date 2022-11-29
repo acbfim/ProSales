@@ -10,8 +10,8 @@ namespace ProSales.Domain.Dtos
     public class CreateContactTypeDto
     {
         [StringLength(50)]
-        [MinLength(5,ErrorMessage ="Informe um contato com mais de 5 caracteres")]
-        [Required(ErrorMessage ="O campo é requerido")]
-        public string TypeName { get; set; }
+        [Required(ErrorMessage ="O campo é obrigatório")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z]+[0-9]*$")]
+        public string Name { get; set; }
     }
 }

@@ -111,7 +111,6 @@ namespace ProSales.Repository.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("varchar(30)");
 
                     b.Property<long?>("ClientId")
@@ -119,31 +118,34 @@ namespace ProSales.Repository.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("varchar(10)");
+
                     b.Property<string>("ReferencePoint")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserCreatedId")
@@ -154,7 +156,6 @@ namespace ProSales.Repository.Migrations
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
                     b.HasKey("Id");
@@ -174,21 +175,23 @@ namespace ProSales.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
+
+                    b.Property<bool>("InternalProperty")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserCreatedId")
@@ -209,10 +212,56 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(730),
-                            ExternalId = new Guid("73deb6ca-664a-4efc-8dd3-338059df8ba7"),
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2340),
+                            ExternalId = new Guid("b40e9059-54c9-4902-b483-ee38c83346d4"),
+                            InternalProperty = true,
                             IsActive = true,
                             Name = "Generic"
+                        });
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.CalculationType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("InternalProperty")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CalculationType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            ExternalId = new Guid("0c3908e3-3457-4a24-a7d7-7e7ba5e43ccd"),
+                            InternalProperty = true,
+                            Name = "SUM"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            ExternalId = new Guid("10431bb1-5c47-4a69-9797-e3e7f274389c"),
+                            InternalProperty = true,
+                            Name = "PERCENT"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            ExternalId = new Guid("765b88cc-73fe-4f28-889d-3adf95bcfbcc"),
+                            InternalProperty = true,
+                            Name = "SUBTRACTION"
                         });
                 });
 
@@ -225,7 +274,7 @@ namespace ProSales.Repository.Migrations
                     b.Property<long>("ClientId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
@@ -244,7 +293,10 @@ namespace ProSales.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
@@ -252,10 +304,12 @@ namespace ProSales.Repository.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserCreatedId")
@@ -273,31 +327,128 @@ namespace ProSales.Repository.Migrations
                     b.ToTable("Client");
                 });
 
+            modelBuilder.Entity("ProSales.Domain.Global.CoinType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("InternalProperty")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UserCreatedId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserUpdatedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserCreatedId");
+
+                    b.HasIndex("UserUpdatedId");
+
+                    b.ToTable("CoinType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2280),
+                            ExternalId = new Guid("031f0834-1fd4-439f-868b-df0bbe3173b2"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Label = "R$",
+                            Name = "Real"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2300),
+                            ExternalId = new Guid("50501be9-21d0-4e34-8b49-a1f1fff34734"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Label = "US$",
+                            Name = "Dólar"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2310),
+                            ExternalId = new Guid("2ee13282-3bdf-4b76-b26d-2b8b5dab90ed"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Label = "€",
+                            Name = "Euro"
+                        });
+                });
+
             modelBuilder.Entity("ProSales.Domain.Global.Contact", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ClientId")
+                    b.Property<long>("ClientId")
                         .HasColumnType("bigint");
+
+                    b.Property<long>("ContactTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
-                    b.Property<long>("TypeId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UserCreatedId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserUpdatedId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("ContactTypeId");
+
+                    b.HasIndex("UserCreatedId");
+
+                    b.HasIndex("UserUpdatedId");
 
                     b.ToTable("Contact");
                 });
@@ -308,7 +459,7 @@ namespace ProSales.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
@@ -317,12 +468,15 @@ namespace ProSales.Repository.Migrations
                     b.Property<bool>("InternalProperty")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("TypeName")
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserCreatedId")
@@ -343,66 +497,74 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(300),
-                            ExternalId = new Guid("20dba4ac-ff83-46a0-9462-e4ef14ea9047"),
-                            InternalProperty = false,
-                            TypeName = "Email Pessoal"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(1930),
+                            ExternalId = new Guid("202e9fc3-e051-43e2-a1fd-c31f107356d9"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Email Pessoal"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(370),
-                            ExternalId = new Guid("87872a2a-12c4-4e85-83bb-6fb15ab3970f"),
-                            InternalProperty = false,
-                            TypeName = "Email Comercial"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(1980),
+                            ExternalId = new Guid("99f4b886-f0eb-4a99-bba7-891dd7bd9524"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Email Comercial"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(380),
-                            ExternalId = new Guid("2306d6cc-7772-4b64-bbca-75d1d332b828"),
-                            InternalProperty = false,
-                            TypeName = "Celular Pessoal"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(1990),
+                            ExternalId = new Guid("9687d201-20d9-4c81-91b5-7267188d9259"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Celular Pessoal"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(390),
-                            ExternalId = new Guid("2970154d-61d4-419b-80fe-1a825042bba1"),
-                            InternalProperty = false,
-                            TypeName = "Celular Comercial"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2000),
+                            ExternalId = new Guid("9bda0162-dd12-41f0-bc14-2e59723c653a"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Celular Comercial"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(400),
-                            ExternalId = new Guid("c82ad557-2e42-4e03-81e3-7f95e5146fec"),
-                            InternalProperty = false,
-                            TypeName = "Telefone Comercial"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2020),
+                            ExternalId = new Guid("8fff77b1-1a9c-4fa7-a663-caaa1c44a03e"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Telefone Comercial"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(420),
-                            ExternalId = new Guid("dc736d73-5e48-4350-a245-1aeb2b8123ed"),
-                            InternalProperty = false,
-                            TypeName = "Telefone Residencial"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2030),
+                            ExternalId = new Guid("615a18d7-fc43-4a0d-9091-9d0000facb7e"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Telefone Residencial"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(430),
-                            ExternalId = new Guid("f59715df-830c-4f97-ba9d-dc3cf8a7081c"),
-                            InternalProperty = false,
-                            TypeName = "WhatsApp Comercial"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2040),
+                            ExternalId = new Guid("d43977bf-082e-4258-ad5c-25da6cf273ab"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "WhatsApp Comercial"
                         },
                         new
                         {
                             Id = 8L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(490),
-                            ExternalId = new Guid("56b88e83-290a-4c84-8116-17736760b5e9"),
-                            InternalProperty = false,
-                            TypeName = "WhatsApp Pessoal"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2050),
+                            ExternalId = new Guid("2830b12a-c885-4267-8008-72a3cc8f376f"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "WhatsApp Pessoal"
                         });
                 });
 
@@ -412,24 +574,26 @@ namespace ProSales.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<long?>("CalculationTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
-                    b.Property<long?>("TypeCalculatioId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("InternalProperty")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<long?>("TypeCalculationId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("TypeName")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserCreatedId")
@@ -443,7 +607,7 @@ namespace ProSales.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeCalculationId");
+                    b.HasIndex("CalculationTypeId");
 
                     b.HasIndex("UserCreatedId");
 
@@ -455,28 +619,34 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(760),
-                            ExternalId = new Guid("6825c7b4-7417-4aab-adb4-c23fc005f3ed"),
-                            TypeCalculatioId = 3L,
-                            TypeName = "Gerente",
+                            CalculationTypeId = 3L,
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2360),
+                            ExternalId = new Guid("db82b592-1e6e-4d36-b12b-e3dd7b0be9d4"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Gerente",
                             Value = 0.0
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(770),
-                            ExternalId = new Guid("460276af-07b1-4d15-a272-b067adac9de1"),
-                            TypeCalculatioId = 3L,
-                            TypeName = "Cupom",
+                            CalculationTypeId = 3L,
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2380),
+                            ExternalId = new Guid("2a1cd8aa-69fd-4170-a29d-10d2539ababb"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Cupom",
                             Value = 0.0
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(790),
-                            ExternalId = new Guid("f7af3e87-c725-40b6-9944-cebdb3381795"),
-                            TypeCalculatioId = 2L,
-                            TypeName = "Pgamento a vista",
+                            CalculationTypeId = 2L,
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2390),
+                            ExternalId = new Guid("eae5521c-cab9-4a98-b64c-639d08426606"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Pgamento a vista",
                             Value = 0.14999999999999999
                         });
                 });
@@ -490,30 +660,46 @@ namespace ProSales.Repository.Migrations
                     b.Property<long?>("ClientId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long>("DocumentTypeId")
+                        .HasColumnType("bigint");
+
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("FileName")
-                        .HasMaxLength(300)
                         .HasColumnType("varchar(130)");
 
-                    b.Property<long>("TypeId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("UrlLocation")
-                        .HasMaxLength(300)
                         .HasColumnType("varchar(300)");
+
+                    b.Property<int?>("UserCreatedId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserUpdatedId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("DocumentTypeId");
+
+                    b.HasIndex("UserCreatedId");
+
+                    b.HasIndex("UserUpdatedId");
 
                     b.ToTable("Document");
                 });
@@ -524,18 +710,23 @@ namespace ProSales.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("TypeName")
+                    b.Property<bool>("InternalProperty")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserCreatedId")
@@ -556,51 +747,65 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(580),
-                            ExternalId = new Guid("dc17c33c-7648-4f9f-9f9a-6cb7c0a8690f"),
-                            TypeName = "RG"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2180),
+                            ExternalId = new Guid("8ad6df2d-a79b-4ad6-aa96-70834d6e6596"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "RG"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(590),
-                            ExternalId = new Guid("57c73fe2-91aa-4d11-91b7-d745f29fda84"),
-                            TypeName = "CPF"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2200),
+                            ExternalId = new Guid("ae023b5f-8a07-4454-b829-fe32b1a447c6"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "CPF"
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(610),
-                            ExternalId = new Guid("2db8e3e3-4bb2-490c-a826-e43b47ee6298"),
-                            TypeName = "CNPJ"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2210),
+                            ExternalId = new Guid("376743b3-0609-44ab-b367-c29c08482092"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "CNPJ"
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(620),
-                            ExternalId = new Guid("3fd965e1-34e3-481b-a47c-44eea63f64d0"),
-                            TypeName = "CNH"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2220),
+                            ExternalId = new Guid("21adfa92-ea46-403f-a8cb-7fb26f65ae03"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "CNH"
                         },
                         new
                         {
                             Id = 5L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(630),
-                            ExternalId = new Guid("ca95f230-25b2-457b-95df-0e21151d861f"),
-                            TypeName = "Certidão de Nascimento"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2230),
+                            ExternalId = new Guid("eca978a2-5304-4d7d-8bea-5813722d108a"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Certidão de Nascimento"
                         },
                         new
                         {
                             Id = 6L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(640),
-                            ExternalId = new Guid("b844d756-6bae-477b-8fd3-bc7969c929b6"),
-                            TypeName = "Certidão de Casamento"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2250),
+                            ExternalId = new Guid("bd3846f4-9888-4cef-9db3-b6fbed5593eb"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Certidão de Casamento"
                         },
                         new
                         {
                             Id = 7L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(650),
-                            ExternalId = new Guid("027fe812-a905-49a6-b7c2-5ec9ee71e6ed"),
-                            TypeName = "Foto do usuário"
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2260),
+                            ExternalId = new Guid("ce1dbadc-dc82-4460-84b2-1a0d5970f0bd"),
+                            InternalProperty = true,
+                            IsActive = true,
+                            Name = "Foto do usuário"
                         });
                 });
 
@@ -613,7 +818,7 @@ namespace ProSales.Repository.Migrations
                     b.Property<double>("AmountProductSale")
                         .HasColumnType("double");
 
-                    b.Property<DateTime>("DateSale")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
@@ -643,18 +848,34 @@ namespace ProSales.Repository.Migrations
                     b.Property<string>("BarCode")
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UserCreatedId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserUpdatedId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserCreatedId");
+
+                    b.HasIndex("UserUpdatedId");
 
                     b.ToTable("Inventory");
                 });
@@ -668,26 +889,20 @@ namespace ProSales.Repository.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("double");
 
-                    b.Property<long?>("ClientId")
+                    b.Property<long>("ClientId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("EffectiveDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<long>("CoinTypeId")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
-
-                    b.Property<long>("TypeCoinId")
-                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("TypeCoinId");
+                    b.HasIndex("CoinTypeId");
 
                     b.ToTable("Order");
                 });
@@ -698,31 +913,165 @@ namespace ProSales.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("BrandId")
+                    b.Property<long>("BrandId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("CartId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(300)
                         .HasColumnType("varchar(300)");
 
                     b.Property<double>("Discount")
                         .HasColumnType("double");
 
-                    b.Property<long?>("DiscountTypeId")
+                    b.Property<long>("DiscountTypeId")
                         .HasColumnType("bigint");
 
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("ImageUrl")
-                        .HasMaxLength(300)
                         .HasColumnType("varchar(300)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double");
+
+                    b.Property<long>("ProductTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UserCreatedId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserUpdatedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("DiscountTypeId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("UserCreatedId");
+
+                    b.HasIndex("UserUpdatedId");
+
+                    b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.ProductCart", b =>
+                {
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CartId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int?>("UserCreatedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "CartId");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("UserCreatedId");
+
+                    b.ToTable("ProductCart");
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.ProductOrder", b =>
+                {
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("UserCreatedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("UserCreatedId");
+
+                    b.ToTable("ProductOrder");
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.ProductSale", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SaleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("UserCreatedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SaleId");
+
+                    b.HasIndex("UserCreatedId");
+
+                    b.ToTable("ProductSale");
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.ProductType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("ExternalId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("InternalProperty")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
@@ -732,61 +1081,7 @@ namespace ProSales.Repository.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<long?>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("double");
-
-                    b.Property<long>("ProductTypeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("SaleId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("UserCreatedId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("DiscountTypeId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductTypeId");
-
-                    b.HasIndex("SaleId");
-
-                    b.HasIndex("UserCreatedId");
-
-                    b.ToTable("Product");
-                });
-
-            modelBuilder.Entity("ProSales.Domain.Global.ProductType", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("ExternalId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<bool>("InternalProperty")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserCreatedId")
@@ -807,18 +1102,20 @@ namespace ProSales.Repository.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(810),
-                            ExternalId = new Guid("8ee9ee18-a7e6-4783-a20a-b0ad74d84a1e"),
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2410),
+                            ExternalId = new Guid("e09209d4-ee99-4f26-9fdb-f2f6cde54780"),
                             InternalProperty = true,
-                            TypeName = "Serviço"
+                            IsActive = true,
+                            Name = "Serviço"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(820),
-                            ExternalId = new Guid("d65f5d05-ae76-45ff-a091-9fdfff278e58"),
+                            CreatedAt = new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2430),
+                            ExternalId = new Guid("69a00ef6-4ab6-4fdb-9ac7-d94975c8cb23"),
                             InternalProperty = true,
-                            TypeName = "Produto"
+                            IsActive = true,
+                            Name = "Produto"
                         });
                 });
 
@@ -834,22 +1131,25 @@ namespace ProSales.Repository.Migrations
                     b.Property<long?>("ClientId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("CoinTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
                     b.Property<int?>("SellerId")
                         .HasColumnType("int");
 
-                    b.Property<long>("TypeCoinId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("SellerId");
+                    b.HasIndex("CoinTypeId");
 
-                    b.HasIndex("TypeCoinId");
+                    b.HasIndex("SellerId");
 
                     b.ToTable("Sale");
                 });
@@ -860,101 +1160,20 @@ namespace ProSales.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<long?>("ProductId")
+                    b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Specification");
-                });
-
-            modelBuilder.Entity("ProSales.Domain.Global.TypeCalculation", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("ExternalId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<bool>("InternalProperty")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeCalculation");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            ExternalId = new Guid("9e52dc95-627b-4519-8e36-eeddb0858c02"),
-                            InternalProperty = true,
-                            TypeName = "SUM"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            ExternalId = new Guid("07550aca-0ab2-4507-a8b1-d803a3bd8a6c"),
-                            InternalProperty = true,
-                            TypeName = "PERCENT"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            ExternalId = new Guid("03dda645-1a46-4c2f-92ad-988296fadc88"),
-                            InternalProperty = true,
-                            TypeName = "SUBTRACTION"
-                        });
-                });
-
-            modelBuilder.Entity("ProSales.Domain.Global.TypeCoin", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
-
-                    b.Property<Guid>("ExternalId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<DateTime?>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserCreatedId")
@@ -963,39 +1182,19 @@ namespace ProSales.Repository.Migrations
                     b.Property<int?>("UserUpdatedId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("varchar(1000)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserCreatedId");
 
                     b.HasIndex("UserUpdatedId");
 
-                    b.ToTable("TypeCoin");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(680),
-                            ExternalId = new Guid("f41e6129-dfaa-42a9-bae6-3f4b6af87526"),
-                            Label = "R$",
-                            Name = "Real"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(700),
-                            ExternalId = new Guid("12d29c85-d00d-4388-ba52-f12147003875"),
-                            Label = "US$",
-                            Name = "Dólar"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CreatedDate = new DateTime(2022, 11, 22, 3, 6, 56, 63, DateTimeKind.Local).AddTicks(710),
-                            ExternalId = new Guid("bb1aa87a-37ca-4fe1-b84d-7cf22a0494cb"),
-                            Label = "€",
-                            Name = "Euro"
-                        });
+                    b.ToTable("Specification");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Identity.Role", b =>
@@ -1013,11 +1212,11 @@ namespace ProSales.Repository.Migrations
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(191)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(191)");
 
                     b.HasKey("Id");
 
@@ -1053,7 +1252,7 @@ namespace ProSales.Repository.Migrations
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(191)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
@@ -1077,11 +1276,11 @@ namespace ProSales.Repository.Migrations
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(191)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(191)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("longtext");
@@ -1103,7 +1302,7 @@ namespace ProSales.Repository.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("varchar(191)");
 
                     b.HasKey("Id");
 
@@ -1228,19 +1427,50 @@ namespace ProSales.Repository.Migrations
                     b.Navigation("UserUpdated");
                 });
 
+            modelBuilder.Entity("ProSales.Domain.Global.CoinType", b =>
+                {
+                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
+                        .WithMany()
+                        .HasForeignKey("UserCreatedId");
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
+                        .WithMany()
+                        .HasForeignKey("UserUpdatedId");
+
+                    b.Navigation("UserCreated");
+
+                    b.Navigation("UserUpdated");
+                });
+
             modelBuilder.Entity("ProSales.Domain.Global.Contact", b =>
                 {
-                    b.HasOne("ProSales.Domain.Global.Client", null)
+                    b.HasOne("ProSales.Domain.Global.Client", "Client")
                         .WithMany("Contacts")
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("ProSales.Domain.Global.ContactType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ProSales.Domain.Global.ContactType", "Type")
+                        .WithMany()
+                        .HasForeignKey("ContactTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
+                        .WithMany()
+                        .HasForeignKey("UserCreatedId");
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
+                        .WithMany()
+                        .HasForeignKey("UserUpdatedId");
+
+                    b.Navigation("Client");
+
                     b.Navigation("Type");
+
+                    b.Navigation("UserCreated");
+
+                    b.Navigation("UserUpdated");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.ContactType", b =>
@@ -1260,9 +1490,9 @@ namespace ProSales.Repository.Migrations
 
             modelBuilder.Entity("ProSales.Domain.Global.DiscountType", b =>
                 {
-                    b.HasOne("ProSales.Domain.Global.TypeCalculation", "TypeCalculation")
+                    b.HasOne("ProSales.Domain.Global.CalculationType", "CalculationType")
                         .WithMany()
-                        .HasForeignKey("TypeCalculationId");
+                        .HasForeignKey("CalculationTypeId");
 
                     b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
                         .WithMany()
@@ -1272,7 +1502,7 @@ namespace ProSales.Repository.Migrations
                         .WithMany()
                         .HasForeignKey("UserUpdatedId");
 
-                    b.Navigation("TypeCalculation");
+                    b.Navigation("CalculationType");
 
                     b.Navigation("UserCreated");
 
@@ -1285,13 +1515,25 @@ namespace ProSales.Repository.Migrations
                         .WithMany("Documents")
                         .HasForeignKey("ClientId");
 
-                    b.HasOne("ProSales.Domain.Global.DocumentType", "Type")
+                    b.HasOne("ProSales.Domain.Global.DocumentType", "DocumentType")
                         .WithMany()
-                        .HasForeignKey("TypeId")
+                        .HasForeignKey("DocumentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Type");
+                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
+                        .WithMany()
+                        .HasForeignKey("UserCreatedId");
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
+                        .WithMany()
+                        .HasForeignKey("UserUpdatedId");
+
+                    b.Navigation("DocumentType");
+
+                    b.Navigation("UserCreated");
+
+                    b.Navigation("UserUpdated");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.DocumentType", b =>
@@ -1336,43 +1578,53 @@ namespace ProSales.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
+                        .WithMany()
+                        .HasForeignKey("UserCreatedId");
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
+                        .WithMany()
+                        .HasForeignKey("UserUpdatedId");
+
                     b.Navigation("Product");
+
+                    b.Navigation("UserCreated");
+
+                    b.Navigation("UserUpdated");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.Order", b =>
                 {
                     b.HasOne("ProSales.Domain.Global.Client", "Client")
                         .WithMany()
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("ProSales.Domain.Global.TypeCoin", "TypeCoin")
+                    b.HasOne("ProSales.Domain.Global.CoinType", "CoinType")
                         .WithMany()
-                        .HasForeignKey("TypeCoinId")
+                        .HasForeignKey("CoinTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
 
-                    b.Navigation("TypeCoin");
+                    b.Navigation("CoinType");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.Product", b =>
                 {
                     b.HasOne("ProSales.Domain.Global.Brand", "Brand")
                         .WithMany()
-                        .HasForeignKey("BrandId");
-
-                    b.HasOne("ProSales.Domain.Global.Cart", null)
-                        .WithMany("Products")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProSales.Domain.Global.DiscountType", "DiscountType")
                         .WithMany()
-                        .HasForeignKey("DiscountTypeId");
-
-                    b.HasOne("ProSales.Domain.Global.Order", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("DiscountTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProSales.Domain.Global.ProductType", "ProductType")
                         .WithMany()
@@ -1380,19 +1632,96 @@ namespace ProSales.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProSales.Domain.Global.Sale", null)
-                        .WithMany("Products")
-                        .HasForeignKey("SaleId");
-
                     b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
                         .WithMany()
                         .HasForeignKey("UserCreatedId");
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
+                        .WithMany()
+                        .HasForeignKey("UserUpdatedId");
 
                     b.Navigation("Brand");
 
                     b.Navigation("DiscountType");
 
                     b.Navigation("ProductType");
+
+                    b.Navigation("UserCreated");
+
+                    b.Navigation("UserUpdated");
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.ProductCart", b =>
+                {
+                    b.HasOne("ProSales.Domain.Global.Cart", "Cart")
+                        .WithMany("ProductsCart")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProSales.Domain.Global.Product", "Product")
+                        .WithMany("ProductsCart")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
+                        .WithMany()
+                        .HasForeignKey("UserCreatedId");
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("UserCreated");
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.ProductOrder", b =>
+                {
+                    b.HasOne("ProSales.Domain.Global.Order", "Order")
+                        .WithMany("ProductsOrder")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProSales.Domain.Global.Product", "Product")
+                        .WithMany("ProductsOrder")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
+                        .WithMany()
+                        .HasForeignKey("UserCreatedId");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("UserCreated");
+                });
+
+            modelBuilder.Entity("ProSales.Domain.Global.ProductSale", b =>
+                {
+                    b.HasOne("ProSales.Domain.Global.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProSales.Domain.Global.Sale", "Sale")
+                        .WithMany("ProductsSale")
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
+                        .WithMany()
+                        .HasForeignKey("UserCreatedId");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Sale");
 
                     b.Navigation("UserCreated");
                 });
@@ -1418,32 +1747,29 @@ namespace ProSales.Repository.Migrations
                         .WithMany()
                         .HasForeignKey("ClientId");
 
+                    b.HasOne("ProSales.Domain.Global.CoinType", "CoinType")
+                        .WithMany()
+                        .HasForeignKey("CoinTypeId");
+
                     b.HasOne("ProSales.Domain.Identity.User", "Seller")
                         .WithMany()
                         .HasForeignKey("SellerId");
 
-                    b.HasOne("ProSales.Domain.Global.TypeCoin", "TypeCoin")
-                        .WithMany()
-                        .HasForeignKey("TypeCoinId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Client");
 
-                    b.Navigation("Seller");
+                    b.Navigation("CoinType");
 
-                    b.Navigation("TypeCoin");
+                    b.Navigation("Seller");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.Specification", b =>
                 {
-                    b.HasOne("ProSales.Domain.Global.Product", null)
+                    b.HasOne("ProSales.Domain.Global.Product", "Product")
                         .WithMany("Specifications")
-                        .HasForeignKey("ProductId");
-                });
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("ProSales.Domain.Global.TypeCoin", b =>
-                {
                     b.HasOne("ProSales.Domain.Identity.User", "UserCreated")
                         .WithMany()
                         .HasForeignKey("UserCreatedId");
@@ -1451,6 +1777,8 @@ namespace ProSales.Repository.Migrations
                     b.HasOne("ProSales.Domain.Identity.User", "UserUpdated")
                         .WithMany()
                         .HasForeignKey("UserUpdatedId");
+
+                    b.Navigation("Product");
 
                     b.Navigation("UserCreated");
 
@@ -1478,7 +1806,7 @@ namespace ProSales.Repository.Migrations
 
             modelBuilder.Entity("ProSales.Domain.Global.Cart", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductsCart");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.Client", b =>
@@ -1492,19 +1820,23 @@ namespace ProSales.Repository.Migrations
 
             modelBuilder.Entity("ProSales.Domain.Global.Order", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductsOrder");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.Product", b =>
                 {
                     b.Navigation("Inventory");
 
+                    b.Navigation("ProductsCart");
+
+                    b.Navigation("ProductsOrder");
+
                     b.Navigation("Specifications");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Global.Sale", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductsSale");
                 });
 
             modelBuilder.Entity("ProSales.Domain.Identity.Role", b =>

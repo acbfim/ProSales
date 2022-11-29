@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ProSales.API.Dtos;
 using ProSales.Domain.Dtos;
 using ProSales.Domain.Global;
 using ProSales.Domain.Identity;
@@ -68,12 +68,12 @@ public class TesteController : ControllerBase
 
         var createContact = _mapper.Map<ContactType>(contato);
 
-        createContact.UserCreatedId = Int32.Parse(userId);
+        //createContact.UserCreatedId = Int32.Parse(userId);
         var add = _context.Add(createContact);
 
         if(await _context.SaveChangesAsync() > 0){
             RetornoDto retorno = new RetornoDto();
-            retorno.Object = _mapper.Map<ContactTypeDto>(add.Entity);
+            retorno.Data = _mapper.Map<ContactTypeDto>(add.Entity);
 
             retorno.Message = "Contato salvo com sucesso";
             retorno.Success = true;
@@ -83,6 +83,34 @@ public class TesteController : ControllerBase
 
         return Ok(_mapper.Map<ContactTypeDto>(add.Entity));
     }
+
+[AllowAnonymous]
+[HttpGet("pdf")]
+public ActionResult PDFUmDocSelecionado()
+{
+    try
+    {
+        string _nomeArquivo = "Meu_Documento_" + DateTime.Now.ToString().Replace(" ", "_").Replace("/", "_").Replace(":", "_") + ".pdf";
+
+        var pdf = new byte[] {1,2,3};
+        using (MemoryStream file = new MemoryStream())
+        {
+            file.Write(pdf, 0, pdf.Length);
+        }
+
+        byte[] arquivo = pdf;
+
+        MemoryStream pdfStream = new MemoryStream();
+
+        
+        
+        pdfStream.Position = 0;
+        return new FileStreamResult(pdfStream, "application/pdf");
+    }catch{
+        throw;
+    }
+    
+}
 
 
 }

@@ -1,150 +1,26 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using ProSales.Domain.Identity;
-using ProSales.Repository;
-using ProSales.Repository.Contexts;
-using ProSales.Repository.Contracts;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using ProSales.API.Security;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//var connetionString = builder.Configuration.GetConnectionString("MariaDBContext");
 
-var connetionString = builder.Configuration.GetConnectionString("MariaDBContext");
-
-builder.Services.AddDbContext<ProSalesContext>(
-    x => x.UseMySql(connetionString, ServerVersion.AutoDetect(connetionString))
-        .LogTo(Console.WriteLine, LogLevel.Information)
-        .EnableSensitiveDataLogging()
-        .EnableDetailedErrors()
-);
+builder.Services.AddConfigContexts(builder.Configuration.GetSection("ConnectionStrings"));
 
 builder.Services.AddMyDependencyGroup();
 builder.Services.AddAutoMapper(typeof(Program));
 
-//builder.Services.AddScoped<IGlobalRepository, GlobalRepository>();
-
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-builder.Services.AddIdentity<User, Role>(options =>
-            {
-                options.SignIn.RequireConfirmedEmail = true;
-                options.Password.RequireDigit = false;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 8;
-
-            })
-            .AddRoles<Role>()
-            .AddEntityFrameworkStores<ProSalesContext>()
-            .AddRoleValidator<RoleValidator<Role>>()
-            .AddRoleManager<RoleManager<Role>>()
-            .AddSignInManager<SignInManager<User>>()
-            .AddDefaultTokenProviders();
-
+builder.Services.AddSwaggerConfig();
 //builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthentication(
-                x =>
-                    {
-                        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    }
-            )
-                .AddJwtBearer(opt =>
-                {
-                    opt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = false,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                        .GetBytes(Settings.Secret)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
+builder.Services.AddConfigIdentity();
 
-builder.Services.AddAuthentication(x =>
-        {
-            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        });
-
-builder.Services.AddAuthorization(auth =>
-{
-    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-        .RequireAuthenticatedUser().Build());
-});
-
-builder.Services.AddSwaggerGen(c =>
-            {
-
-                c.SwaggerDoc("v1",
-                    new OpenApiInfo
-                    {
-                        Title = "Pro Sales",
-                        Version = "v1",
-                        Description = "API REST criada com o .Net Core 7 para gestão de vendas",
-                        Contact = new OpenApiContact
-                        {
-                            Name = "Alex Carlos",
-                            Url = new Uri("https://github.com/acbfim/")
-                        }
-                    });
-                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
-
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()  
-                {  
-                    Name = "Authorization",  
-                    Type = SecuritySchemeType.ApiKey,  
-                    Scheme = "Bearer",  
-                    BearerFormat = "JWT",  
-                    In = ParameterLocation.Header,  
-                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",  
-                });  
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement  
-                {  
-                    {  
-                          new OpenApiSecurityScheme  
-                          {  
-                              Reference = new OpenApiReference  
-                              {  
-                                  Type = ReferenceType.SecurityScheme,  
-                                  Id = "Bearer"  
-                              }  
-                          },  
-                         new string[] {}  
-                    }  
-                });  
-            });
-
-builder.Services.AddMvc(options =>
-           {
-               var policy = new AuthorizationPolicyBuilder()
-                   .RequireAuthenticatedUser()
-                   .Build();
-               options.Filters.Add(new AuthorizeFilter(policy));
-           }
-
-            );
-
-
+builder.Services.AddAuth();
 
 
 var app = builder.Build();
