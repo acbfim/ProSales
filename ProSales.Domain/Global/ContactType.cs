@@ -14,7 +14,6 @@ namespace ProSales.Domain.Global
         public Guid ExternalId { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "varchar(50)")]
-        [StringLength(50)]
         public string Name { get; set; }
         public bool InternalProperty { get; set; } = false;
         public bool IsActive { get; set; } = true;

@@ -14,15 +14,12 @@ namespace ProSales.Domain.Global
         public Guid ExternalId { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "varchar(100)")]
-        [StringLength(100)]
         public string Name { get; set; }
 
         [Column(TypeName = "varchar(300)")]
-        [StringLength(300)]
         public string? Description { get; set; }
 
         [Column(TypeName = "varchar(100)")]
-        [StringLength(100)]
         public string Label { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

@@ -10,23 +10,20 @@ using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Dtos
 {
-    public class CreateContactDto
+    public class CreateDocumentDto
     {
         [StringLength(50)]
         [Required]
         [RegularExpression(@"^[0-9]*$", ErrorMessage ="Informe apenas números entre 0 e 9")]
         public string Value { get; set; }
-        public CreateContactContactTypeDto ContactType { get; set; }
+        public CreateContactDocumentTypeDto DocumentType { get; set; }
         public CreateContactClientDto Client { get; set; }
 
 
     }
-    public class CreateContactClientDto
-    {
-        public Guid ExternalId { get; set; }
-    }
 
-    public class CreateContactContactTypeDto
+
+    public class CreateContactDocumentTypeDto
     {
         public Guid ExternalId { get; set; }
     }

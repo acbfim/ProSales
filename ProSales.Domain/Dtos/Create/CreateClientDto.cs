@@ -14,12 +14,11 @@ namespace ProSales.Domain.Dtos
     {
         [StringLength(50)]
         [Required]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
         public string FullName { get; set; }
-        public DateTime BirthDate { get; set; }
 
-        public class CreateContactClientDto
-        {
-            
-        }
+        [Required]
+        public DateTime BirthDate { get; set; }
+        
     }
 }

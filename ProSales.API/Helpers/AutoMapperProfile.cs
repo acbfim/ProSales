@@ -7,7 +7,6 @@ using ProSales.Domain.Dtos;
 using ProSales.Domain.Global;
 using ProSales.Domain.Identity;
 
-
 namespace ProSales.API.Helpers
 {
     public class AutoMapperProfile : Profile
@@ -26,11 +25,15 @@ namespace ProSales.API.Helpers
             CreateMap<Client, ClientDto>().ReverseMap();
             CreateMap<Client, ClientDtoAddCart>().ReverseMap();
             CreateMap<Client, CreateClientDto>().ReverseMap();
+            CreateMap<Client, CreateContactClientDto>().ReverseMap();
 
             CreateMap<Contact, CreateContactDto>().ReverseMap();
+            CreateMap<Contact, ContactDto>().ReverseMap();
+            
 
             CreateMap<ContactType, ContactTypeDto>().ReverseMap();
             CreateMap<ContactType, CreateContactTypeDto>().ReverseMap();
+            CreateMap<ContactType, CreateContactContactTypeDto>().ReverseMap();
 
             CreateMap<Brand, CreateBrandDto>().ReverseMap();
             CreateMap<Brand, BrandDto>().ReverseMap();
@@ -41,7 +44,11 @@ namespace ProSales.API.Helpers
             CreateMap<DiscountType, CreateDiscountTypeDto>().ReverseMap();
             CreateMap<DiscountType, DiscountTypeDto>().ReverseMap();
 
+            CreateMap<Document, DocumentDto>().ReverseMap();
+            CreateMap<Document, CreateDocumentDto>().ReverseMap();
+
             CreateMap<DocumentType, CreateDocumentTypeDto>().ReverseMap();
+            CreateMap<DocumentType, CreateContactDocumentTypeDto>().ReverseMap();
             CreateMap<DocumentType, DocumentTypeDto>().ReverseMap();
 
             CreateMap<Product, ProductDto>().ReverseMap();

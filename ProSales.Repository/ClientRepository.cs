@@ -52,19 +52,70 @@ namespace ProSales.Repository
             .Take((int)query.Take);
 
             result = result
+                .Include(x => x.Contacts)
+                    .ThenInclude(x => x.ContactType)
+                .Include(x => x.Addresses)
+                .Include(x => x.Documents)
+                    .ThenInclude(x => x.DocumentType);
+
+            result = result
             .Filter(query).Sort(query);
 
             return await result.ToListAsync();
         }
 
-        public async Task<long> GetCountItems(ClientQuery query)
+        public async Task<long> GetCountItems<T>(T query)  where T : class
         {
             var result = this.context.Client.AsQueryable().AsNoTracking();
 
             result = result
-            .Filter(query).Sort(query);
+            .Filter((ICustomQueryable)query);
 
             return result.Count();
+        }
+
+        public async Task<ICollection<Client>> GetByDocument(DocumentQuery query)
+        {
+            var newSkip = query.Skip == 0 ? 0 : (query.Skip*query.Take);
+
+            var result = this.context.Client.AsQueryable()
+            .Skip(newSkip)
+            .Take((int)query.Take);
+
+            result = result
+                .Include(x => x.Documents.Where(c => c.Value == query.Value))
+                    .ThenInclude(x => x.DocumentType)
+                .Include(x => x.Addresses)
+                .Include(x => x.Contacts)
+                    .ThenInclude(x => x.ContactType);
+
+            result = result.Where(x => x.Documents
+                    .First(c => c.ClientId == x.Id)
+                .Value.Contains(query.Value));
+
+            return await result.ToListAsync();
+        }
+
+        public async Task<ICollection<Client>> GetByContact(ContactQuery query)
+        {
+            var newSkip = query.Skip == 0 ? 0 : (query.Skip*query.Take);
+
+            var result = this.context.Client.AsQueryable()
+            .Skip(newSkip)
+            .Take((int)query.Take);
+
+            result = result
+                .Include(x => x.Documents.Where(c => c.Value == query.Value))
+                    .ThenInclude(x => x.DocumentType)
+                .Include(x => x.Addresses)
+                .Include(x => x.Contacts)
+                    .ThenInclude(x => x.ContactType);
+
+            result = result.Where(x => x.Contacts
+                    .First(c => c.ClientId == x.Id)
+                .Value.Contains(query.Value));
+
+            return await result.ToListAsync();
         }
     }
 }

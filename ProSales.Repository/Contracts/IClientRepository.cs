@@ -11,9 +11,11 @@ namespace ProSales.Repository.Contracts
     {
         Task<Client> GetByExternalId(Guid externalId);
         Task<Client> GetByFullName(string fullName);
+        Task<ICollection<Client>> GetByDocument(DocumentQuery query);
+        Task<ICollection<Client>> GetByContact(ContactQuery value);
         Task<Client> GetById(long id);
         Task<ICollection<Client>> GetAllByQuery(ClientQuery query);
-        Task<long> GetCountItems(ClientQuery query);
+        Task<long> GetCountItems<T>(T query) where T : class;
 
     }
 }

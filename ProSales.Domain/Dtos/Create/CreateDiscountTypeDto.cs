@@ -14,6 +14,7 @@ namespace ProSales.Domain.Dtos
 
         [Required(ErrorMessage ="O campo é obrigatório")]
         [StringLength(50)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z]+[0-9]*$")]
         public string Name { get; set; }
 
         [Required(ErrorMessage ="O campo é obrigatório")]

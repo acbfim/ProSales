@@ -12,6 +12,7 @@ namespace ProSales.Domain.Dtos
     {
         [StringLength(20)]
         [Required]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z]+[0-9]*$")]
         public string Name { get; set; }
     }
 }

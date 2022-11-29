@@ -28,6 +28,6 @@ namespace ProSales.Domain.Global
         public User? UserCreated { get; set; }
         public User? UserUpdated { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

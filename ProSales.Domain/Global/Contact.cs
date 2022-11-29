@@ -14,7 +14,7 @@ namespace ProSales.Domain.Global
         public Guid ExternalId { get; set; } = Guid.NewGuid();
 
         public long ContactTypeId { get; set; }
-        public ContactType Type { get; set; }
+        public ContactType ContactType { get; set; }
 
         [Column(TypeName = "varchar(100)")]
         public string Value { get; set; }

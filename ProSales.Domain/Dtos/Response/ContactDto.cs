@@ -5,15 +5,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using ProSales.Domain.Global;
 using ProSales.Domain.Identity;
 
 namespace ProSales.Domain.Dtos
 {
-    public class ContactTypeDto
+    public partial class ContactDto
     {
         public Guid ExternalId { get; set; }
-        public string? Name { get; set; }
+
+        public ContactTypeDto? ContactType { get; set; }
+
+        public string? Value { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+
         public bool? IsActive { get; set; }
-        public bool? InternalProperty { get; set; }
     }
+
+    
+
+    
 }

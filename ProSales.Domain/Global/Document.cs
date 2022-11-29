@@ -25,6 +25,8 @@ namespace ProSales.Domain.Global
 
         public long DocumentTypeId { get; set; }
         public DocumentType DocumentType { get; set; }
+        public long ClientId { get; set; }
+        public Client Client { get; set; }
 
         public User? UserCreated { get; set; }
         public User? UserUpdated { get; set; }
