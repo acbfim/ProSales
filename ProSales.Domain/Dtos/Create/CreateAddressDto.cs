@@ -46,13 +46,6 @@ namespace ProSales.Domain.Dtos
         [StringLength(10)]
         [RegularExpression(@"^[A-Z]+[a-zA-Z]+[0-9]*$")]
         public string Number { get; set; }
-
-        public ClientDtt Client { get; set; }
-
-        public partial class ClientDtt {
-            public Guid ExternalId { get; set; }
-        }
-
-        
+        public ClientExternal Client { get; set; }
     }
 }

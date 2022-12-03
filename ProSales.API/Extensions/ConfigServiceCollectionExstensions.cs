@@ -47,8 +47,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IDocumentTypeService, DocumentTypeService>();
             services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
 
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
+            services.AddScoped<IInventoryService, InventoryService>();
+
             services.AddScoped<IProductRepository, ProductRepository>();
-            //services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<IProductTypeRepository, ProductTypeRepository>();

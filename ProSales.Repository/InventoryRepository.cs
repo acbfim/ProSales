@@ -14,49 +14,35 @@ using ProSales.Repository.Contracts;
 
 namespace ProSales.Repository
 {
-    public class ProductRepository : IProductRepository
+    public class InventoryRepository : IInventoryRepository
     {
         private readonly ProSalesContext context;
 
-        public ProductRepository(ProSalesContext context )
+        public InventoryRepository(ProSalesContext context )
         {
             this.context = context;
         }
-        public async Task<Product> GetByExternalId(Guid externalId)
+        public async Task<Inventory> GetByExternalId(Guid externalId)
         {
-            IQueryable<Product> query = this.context.Product.AsNoTracking();
+            IQueryable<Inventory> query = this.context.Inventory.AsNoTracking();
 
             return await query.FirstOrDefaultAsync(x => x.ExternalId == externalId);
         }
 
-        public async Task<Product> GetById(long id)
+        public async Task<Inventory> GetById(long id)
         {
-            IQueryable<Product> query = this.context.Product.AsNoTracking();
+            IQueryable<Inventory> query = this.context.Inventory.AsNoTracking();
 
             return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Product> GetByName(string name)
-        {
-            IQueryable<Product> query = this.context.Product.AsNoTracking();
-
-            return await query.FirstOrDefaultAsync(x => x.Name.ToUpper() == name.ToUpper());
-        }
-
-        public async Task<ICollection<Product>> GetAllByQuery(ProductQuery query)
+        public async Task<ICollection<Inventory>> GetAllByQuery(InventoryQuery query)
         {
             var newSkip = query.Skip == 0 ? 0 : (query.Skip*query.Take);
 
-            var result = this.context.Product.AsQueryable()
+            var result = this.context.Inventory.AsQueryable()
             .Skip(newSkip)
             .Take((int)query.Take);
-
-            result = result
-                .Include(x => x.Specifications)
-                .Include(x => x.Brand)
-                .Include(x => x.ProductType)
-                .Include(x => x.DiscountType)
-                    .ThenInclude(x => x.CalculationType);
 
             result = result
             .Filter(query).Sort(query);
@@ -64,14 +50,29 @@ namespace ProSales.Repository
             return await result.ToListAsync();
         }
 
-        public async Task<long> GetCountItems(ProductQuery query)
+        public async Task<long> GetCountItems(InventoryQuery query)
         {
-            var result = this.context.Product.AsQueryable().AsNoTracking();
+            var result = this.context.Inventory.AsQueryable().AsNoTracking();
 
             result = result
             .Filter(query).Sort(query);
 
             return result.Count();
         }
+
+        public async Task<ICollection<Inventory>> GetByProductId(InventoryQuery query, long productId)
+        {
+            var newSkip = query.Skip == 0 ? 0 : (query.Skip*query.Take);
+
+            var result = this.context.Inventory.AsQueryable()
+            .Skip(newSkip)
+            .Take((int)query.Take);
+
+            result = result.Where(x => x.ProductId == productId);
+
+            return await result.ToListAsync();
+        }
+
+      
     }
 }

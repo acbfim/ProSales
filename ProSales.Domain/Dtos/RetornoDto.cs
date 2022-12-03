@@ -35,12 +35,12 @@ namespace ProSales.Domain.Dtos
             return ret;
         }
 
-        public static RetornoDto objectGenericError(Exception err){
+        public static RetornoDto objectGenericError(Object err){
             RetornoDto ret = new RetornoDto();
             ret.Message = "Erro ao tentar realizar ação";
             ret.Success = false;
             ret.StatusCode = StatusCodes.Status500InternalServerError;
-            ret.Data = err.Message;
+            ret.Data = err;
 
             ret.TotalItems = null;
             ret.Page = null;

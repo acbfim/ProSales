@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ProSales.Application;
+using ProSales.Application.Contracts;
+using ProSales.Domain.Dtos;
+
+namespace ProSales.API.Controllers;
+
+//[AllowAnonymous]
+[Route("api/[controller]")]
+[ApiController]
+public class InventoryController : ControllerBase
+{
+    private readonly IInventoryService service;
+
+    public InventoryController(IInventoryService service)
+    {
+        this.service = service;
+    }
+
+
+    /// <summary>
+    /// Get Item by ExternalID
+    /// </summary>
+    /// <param name= "ExternalId"></param>
+    [HttpGet("by-external-id/{externalId}")]
+    public async Task<IActionResult> getByExternalId(Guid externalId)
+    {
+        var ret = this.service.GetByExternalId(externalId).Result;
+        return StatusCode(ret.StatusCode, ret);
+    }
+
+    /// <summary>
+    /// Get Item by Query
+    /// </summary>
+    [HttpGet("by-query")]
+    public async Task<IActionResult> GetAllByQuery([FromQuery] InventoryQuery query)
+    {
+        var ret = this.service.GetAllByQuery(query).Result;
+        return StatusCode(ret.StatusCode, ret);
+    }
+
+    /// <summary>
+    /// Get Items by Product
+    /// </summary>
+    [HttpGet("by-product-external-id/{productExternalId}")]
+    public async Task<IActionResult> GetAllByProduct([FromQuery] InventoryQuery query, Guid productExternalId)
+    {
+        var ret = this.service.GetAllByProductId(query, productExternalId).Result;
+        return StatusCode(ret.StatusCode, ret);
+    }
+
+
+    /// <summary>
+    /// Post create item
+    /// </summary>
+    [HttpPost("create")]
+    public async Task<IActionResult> postCreate(CreateInventoryDto create)
+    {
+        var ret = this.service.Create(create).Result;
+        return StatusCode(ret.StatusCode, ret);
+    }
+
+    /// <summary>
+    /// Put update item
+    /// </summary>
+    [HttpPut("update")]
+    public async Task<IActionResult> putUpdate(InventoryDto update)
+    {
+        var ret = this.service.Update(update).Result;
+        return StatusCode(ret.StatusCode, ret);
+    }
+
+    /// <summary>
+    /// Put toogle alter status active
+    /// </summary>
+    /// <param name= "externalId"></param>
+    [HttpPut("toggleStatus/by-external-id/{externalId}")]
+    public async Task<IActionResult> ToogleAlterStatus(Guid externalId)
+    {
+        var ret = this.service.ToogleAlterStatus(externalId).Result;
+        return StatusCode(ret.StatusCode, ret);
+    }
+}

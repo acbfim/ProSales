@@ -16,15 +16,9 @@ namespace ProSales.Domain.Dtos
         [Required]
         [RegularExpression(@"^[0-9]*$", ErrorMessage ="Informe apenas números entre 0 e 9")]
         public string Value { get; set; }
-        public CreateContactDocumentTypeDto DocumentType { get; set; }
-        public CreateContactClientDto Client { get; set; }
+        public DocumentTypeExternal DocumentType { get; set; }
+        public ClientExternal Client { get; set; }
 
 
-    }
-
-
-    public class CreateContactDocumentTypeDto
-    {
-        public Guid ExternalId { get; set; }
     }
 }

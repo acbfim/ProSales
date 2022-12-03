@@ -28,7 +28,7 @@ namespace ProSales.Domain.Global
 
         public long ProductTypeId { get; set; }
         public ProductType ProductType { get; set; }
-        public long DiscountTypeId { get; set; }
+        public long? DiscountTypeId { get; set; }
         public DiscountType? DiscountType { get; set; }
         public long BrandId { get; set; }
         public Brand? Brand { get; set; }
@@ -36,8 +36,8 @@ namespace ProSales.Domain.Global
 
         public ICollection<Inventory>? Inventory { get; set; }
         public ICollection<Specification>? Specifications { get; set; }
-        public ICollection<ProductCart> ProductsCart { get; set; }
-        public ICollection<ProductOrder> ProductsOrder { get; set; }
+        public ICollection<ProductCart>? ProductsCart { get; set; }
+        public ICollection<ProductOrder>? ProductsOrder { get; set; }
         
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

@@ -23,9 +23,8 @@ namespace ProSales.API.Helpers
             CreateMap<Cart, CartDtoAddProduct>().ReverseMap();
 
             CreateMap<Client, ClientDto>().ReverseMap();
-            CreateMap<Client, ClientDtoAddCart>().ReverseMap();
             CreateMap<Client, CreateClientDto>().ReverseMap();
-            CreateMap<Client, CreateContactClientDto>().ReverseMap();
+            CreateMap<Client, ClientExternal>().ReverseMap();
 
             CreateMap<Contact, CreateContactDto>().ReverseMap();
             CreateMap<Contact, ContactDto>().ReverseMap();
@@ -33,31 +32,45 @@ namespace ProSales.API.Helpers
 
             CreateMap<ContactType, ContactTypeDto>().ReverseMap();
             CreateMap<ContactType, CreateContactTypeDto>().ReverseMap();
-            CreateMap<ContactType, CreateContactContactTypeDto>().ReverseMap();
+            CreateMap<ContactType, ContactTypeExternal>().ReverseMap();
 
             CreateMap<Brand, CreateBrandDto>().ReverseMap();
             CreateMap<Brand, BrandDto>().ReverseMap();
+            CreateMap<Brand, BrandExternal>().ReverseMap();
             
             CreateMap<ContactType, CreateContactTypeDto>().ReverseMap();
             CreateMap<ContactType, ContactTypeDto>().ReverseMap();
 
             CreateMap<DiscountType, CreateDiscountTypeDto>().ReverseMap();
             CreateMap<DiscountType, DiscountTypeDto>().ReverseMap();
+            CreateMap<DiscountType, DiscountTypeExternal>().ReverseMap();
 
             CreateMap<Document, DocumentDto>().ReverseMap();
             CreateMap<Document, CreateDocumentDto>().ReverseMap();
 
             CreateMap<DocumentType, CreateDocumentTypeDto>().ReverseMap();
-            CreateMap<DocumentType, CreateContactDocumentTypeDto>().ReverseMap();
+            CreateMap<DocumentType, DocumentTypeExternal>().ReverseMap();
             CreateMap<DocumentType, DocumentTypeDto>().ReverseMap();
 
+            CreateMap<Inventory, CreateInventoryDto>().ReverseMap();
+            CreateMap<Inventory, InventoryDto>().ReverseMap();
+
+            CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
-            CreateMap<Product, ProductDtoAddCart>().ReverseMap();
+            CreateMap<Product, ProductExternal>().ReverseMap();
 
             CreateMap<ProductCart, ProductCartDto>().ReverseMap();
 
             CreateMap<ProductType, CreateProductTypeDto>().ReverseMap();
             CreateMap<ProductType, ProductTypeDto>().ReverseMap();
+            CreateMap<ProductType, ProductTypeExternal>().ReverseMap();
+
+            CreateMap<Order, CreateOrderDto>().ReverseMap();
+            CreateMap<Order, OrderDto>().ReverseMap();
+
+            CreateMap<Specification, SpecificationDto>().ReverseMap();
+
+            CreateMap<CoinType, CoinTypeExternal>().ReverseMap();
         }
         
     }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ProSales.Domain;
 using ProSales.Domain.Global;
 using ProSales.Domain.Identity;
 
@@ -39,11 +40,13 @@ namespace ProSales.Repository.Contexts
         public DbSet<ProductCart> ProductCart { get; set; }
         public DbSet<ProductOrder> ProductOrder { get; set; }
         public DbSet<ProductSale> ProductSale { get; set; }
+        public DbSet<FormTeste> FormTeste { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
 
             modelBuilder.Entity<UserRole>(ur =>
             {

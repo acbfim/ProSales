@@ -19,6 +19,10 @@ namespace ProSales.Domain.Dtos
         public double Price { get; set; } = 0.0;
         public string? ImageUrl { get; set; }
         public double Discount { get; set; } = 0.0;
+        public ProductTypeDto ProductType { get; set; }
+        public DiscountTypeDto? DiscountType { get; set; }
+        public BrandDto Brand { get; set; }
+        public ICollection<SpecificationDto> Specifications { get; set; }
 
         public bool IsActive { get; set; }
     }
