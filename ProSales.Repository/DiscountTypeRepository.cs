@@ -26,6 +26,8 @@ namespace ProSales.Repository
         {
             IQueryable<DiscountType> query = this.context.DiscountType.AsNoTracking();
 
+            query = query.Include(x => x.CalculationType);
+
             return await query.FirstOrDefaultAsync(x => x.ExternalId == externalId);
         }
 

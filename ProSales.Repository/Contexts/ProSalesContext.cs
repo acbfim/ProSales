@@ -102,6 +102,24 @@ namespace ProSales.Repository.Contexts
             }
             );
 
+            modelBuilder.Entity<ProductSale>(ur =>
+            {
+                ur.HasKey(k => new { k.ProductId, k.SaleId });
+
+                ur
+                .HasOne(x => x.Product)
+                .WithMany(r => r.ProductsSale)
+                .HasForeignKey(fk => fk.ProductId)
+                .IsRequired();
+
+                ur
+                .HasOne(x => x.Sale)
+                .WithMany(r => r.ProductsSale)
+                .HasForeignKey(fk => fk.SaleId)
+                .IsRequired();
+            }
+            );
+
             modelBuilder.Entity<ContactType>()
             .HasData(
                 new ContactType { Id = 1, ExternalId = Guid.NewGuid(), Name = "Email Pessoal", InternalProperty = true }

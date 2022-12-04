@@ -38,7 +38,7 @@ public class AddressController : ControllerBase
     /// Get Item by Query
     /// </summary>
     [HttpGet("by-query")]
-    public async Task<IActionResult> GetAllBrandByQuery([FromQuery] AddressQuery query)
+    public async Task<IActionResult> GetAllByQuery([FromQuery] AddressQuery query)
     {
         var ret = this.service.GetAllByQuery(query).Result;
         return StatusCode(ret.StatusCode, ret);

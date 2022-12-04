@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace ProSales.Domain.Dtos
 {
-    public class DiscountTypeExternal
+    public class CalculationTypeExternal
     {
         public Guid ExternalId { get; set; }
-        //public CalculationTypeExternal CalculationType { get; set; }
 
     }
 }

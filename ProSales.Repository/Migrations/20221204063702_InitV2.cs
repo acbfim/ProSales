@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,464 +6,432 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProSales.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class Teste : Migration
+    public partial class InitV2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Document_Client_ClientId",
-                table: "Document");
+            migrationBuilder.AddColumn<DateTime>(
+                name: "UpdatedAt",
+                table: "ProductSale",
+                type: "datetime(6)",
+                nullable: true);
 
-            migrationBuilder.AlterColumn<long>(
-                name: "ClientId",
-                table: "Document",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L,
-                oldClrType: typeof(long),
-                oldType: "bigint",
-                oldNullable: true);
-
-            migrationBuilder.CreateTable(
-                name: "FormTeste",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Value = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Type = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FormTesteId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FormTeste", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FormTeste_FormTeste_FormTesteId",
-                        column: x => x.FormTesteId,
-                        principalTable: "FormTeste",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.AddColumn<int>(
+                name: "UserUpdatedId",
+                table: "ProductSale",
+                type: "int",
+                nullable: true);
 
             migrationBuilder.UpdateData(
                 table: "Brand",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8470), new Guid("c2c7694f-090b-481b-8691-ea0db8c82e6e") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3540), new Guid("450331bc-f8b3-46cf-b631-79ad682b4f29") });
 
             migrationBuilder.UpdateData(
                 table: "CalculationType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 column: "ExternalId",
-                value: new Guid("3f3ce9a7-e44b-4a15-8cce-d36e4decb28e"));
+                value: new Guid("698425c8-3be1-4712-ab0a-477f017c7ae0"));
 
             migrationBuilder.UpdateData(
                 table: "CalculationType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 column: "ExternalId",
-                value: new Guid("5bc826c6-87ae-470a-a3ce-73b7d85203d0"));
+                value: new Guid("b32f827a-35b3-4d8b-8491-e0a670211e7a"));
 
             migrationBuilder.UpdateData(
                 table: "CalculationType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 column: "ExternalId",
-                value: new Guid("c6a167ed-1595-42c5-bb31-8aa2b7f4bd15"));
+                value: new Guid("5268b013-ec8c-4977-8323-0da827350001"));
 
             migrationBuilder.UpdateData(
                 table: "CoinType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8410), new Guid("6822baae-4fd2-433f-913b-6871524da88f") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3490), new Guid("52540f3a-ef91-4dd6-9824-ccd7d3d5a49c") });
 
             migrationBuilder.UpdateData(
                 table: "CoinType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8420), new Guid("5adb4e25-9d1c-47ca-842e-e36f2573b086") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3510), new Guid("147eaa04-cd31-4ab0-af6b-39fa2e696c09") });
 
             migrationBuilder.UpdateData(
                 table: "CoinType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8440), new Guid("8830c4e9-e12b-4007-adba-18f1f14132bf") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3520), new Guid("9bf98eec-8e82-42d9-b7ee-5d6cbcd8f796") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8040), new Guid("8396252f-25be-4702-a4ff-4e72aeb8f98c") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3180), new Guid("ea946034-fb97-4d27-bc15-15fee6ee6b7c") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8100), new Guid("535bd564-cbf9-4b70-bd8d-b91d9b0e386b") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3230), new Guid("3fbbe05e-6d52-4f97-9cc7-7f328b222ff5") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8130), new Guid("89441dc0-6d48-411f-97e2-e7d571219f6c") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3250), new Guid("1b9cffd9-6e5c-49af-98dd-e0a1166547ce") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8140), new Guid("ce72e22f-46fb-4864-948f-436af7e932e9") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3260), new Guid("af9a346f-ee70-41f9-bb12-42ff5bea8d42") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8150), new Guid("804502ab-e54d-4d61-967c-12b3e55455ea") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3270), new Guid("f9e4daf5-b2eb-49de-a0bb-5c2177341bbf") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8160), new Guid("7e00e85c-1348-464d-b8a3-8c7b5ff06943") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3280), new Guid("11363c84-a69a-4dfc-a539-4bdaa2f2d542") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 7L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8170), new Guid("83c01d00-f78a-491b-8b4e-bb01960e8c61") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3290), new Guid("88f26f9e-5910-4a7d-b5c9-47b1d52a4f51") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 8L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8190), new Guid("03b8d549-eea0-42a7-9d98-941456b6e9b8") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3310), new Guid("32e050a9-0d78-404b-be11-94c3020dceaa") });
 
             migrationBuilder.UpdateData(
                 table: "DiscountType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8490), new Guid("e0f07220-1c0a-4ef5-9dfe-90a4e86e235e") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3560), new Guid("7ecc3ab3-897d-48be-bc28-369d47c26ac7") });
 
             migrationBuilder.UpdateData(
                 table: "DiscountType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8510), new Guid("2953afe9-448f-4dfa-aa86-b76ad7c5377d") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3580), new Guid("f0d2cbab-8ff5-4b17-a50b-8ab54d7b356a") });
 
             migrationBuilder.UpdateData(
                 table: "DiscountType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8520), new Guid("cc64eb3f-f583-465a-ba16-6ad5ac60b3ad") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3590), new Guid("0498756b-3792-41d8-9e75-26f97a7f20b5") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8300), new Guid("b2076ea7-04f5-44ea-9a72-2627db14c385") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3400), new Guid("81621a1d-d8c0-4a9e-ab95-49b2f92c0540") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8320), new Guid("1db3c1f3-eae0-4145-b309-0a85700d7ef9") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3410), new Guid("293959c5-18bf-41e9-b8ac-9f12a56a92c2") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8330), new Guid("fe850045-64b3-4203-a0d6-ca82944c0a4c") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3420), new Guid("078651e2-7073-47c1-8f7f-495331f41c46") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8340), new Guid("6c85a238-1ac0-4d2d-98ac-96321adf9030") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3430), new Guid("3067fee4-6a36-4113-bf27-9bd948d52bc0") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8350), new Guid("5abefd2b-c8db-4d52-9397-ea58fdf03077") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3450), new Guid("c3b45e97-9af3-4b07-adc3-8612b1e22880") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8360), new Guid("c41e2d40-574b-4622-b675-5a09aeb864b2") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3460), new Guid("3973e4a7-e2c4-4c1e-b41c-048ecb3cd10b") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 7L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8380), new Guid("d40cfd5d-48ca-4201-8a17-fe81175551a8") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3470), new Guid("911791d9-f224-4bcd-ac14-e4b18744f918") });
 
             migrationBuilder.UpdateData(
                 table: "ProductType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8550), new Guid("28c1385a-ee2d-4be4-a304-a87c6b7b9b2b") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3610), new Guid("eea385e1-7051-4220-8fc1-2a13f9c96491") });
 
             migrationBuilder.UpdateData(
                 table: "ProductType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 12, 1, 15, 23, 57, 557, DateTimeKind.Local).AddTicks(8560), new Guid("95de69a8-874b-4912-bad9-d5c024c63d75") });
+                values: new object[] { new DateTime(2022, 12, 4, 3, 37, 2, 145, DateTimeKind.Local).AddTicks(3630), new Guid("9ed07ad8-1132-4c33-8e43-aa6721197e22") });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FormTeste_FormTesteId",
-                table: "FormTeste",
-                column: "FormTesteId");
+                name: "IX_ProductSale_UserUpdatedId",
+                table: "ProductSale",
+                column: "UserUpdatedId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Document_Client_ClientId",
-                table: "Document",
-                column: "ClientId",
-                principalTable: "Client",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                name: "FK_ProductSale_AspNetUsers_UserUpdatedId",
+                table: "ProductSale",
+                column: "UserUpdatedId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Document_Client_ClientId",
-                table: "Document");
+                name: "FK_ProductSale_AspNetUsers_UserUpdatedId",
+                table: "ProductSale");
 
-            migrationBuilder.DropTable(
-                name: "FormTeste");
+            migrationBuilder.DropIndex(
+                name: "IX_ProductSale_UserUpdatedId",
+                table: "ProductSale");
 
-            migrationBuilder.AlterColumn<long>(
-                name: "ClientId",
-                table: "Document",
-                type: "bigint",
-                nullable: true,
-                oldClrType: typeof(long),
-                oldType: "bigint");
+            migrationBuilder.DropColumn(
+                name: "UpdatedAt",
+                table: "ProductSale");
+
+            migrationBuilder.DropColumn(
+                name: "UserUpdatedId",
+                table: "ProductSale");
 
             migrationBuilder.UpdateData(
                 table: "Brand",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2340), new Guid("b40e9059-54c9-4902-b483-ee38c83346d4") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(870), new Guid("d35f72ff-2cb0-447f-9e71-fca6556561f7") });
 
             migrationBuilder.UpdateData(
                 table: "CalculationType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 column: "ExternalId",
-                value: new Guid("0c3908e3-3457-4a24-a7d7-7e7ba5e43ccd"));
+                value: new Guid("5abb49ac-500e-4f40-9951-e8b556c32cd9"));
 
             migrationBuilder.UpdateData(
                 table: "CalculationType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 column: "ExternalId",
-                value: new Guid("10431bb1-5c47-4a69-9797-e3e7f274389c"));
+                value: new Guid("52220b8b-99b3-482a-90c9-0667318d8b78"));
 
             migrationBuilder.UpdateData(
                 table: "CalculationType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 column: "ExternalId",
-                value: new Guid("765b88cc-73fe-4f28-889d-3adf95bcfbcc"));
+                value: new Guid("7044025f-7b49-4e72-b59d-f5bf2a0e0915"));
 
             migrationBuilder.UpdateData(
                 table: "CoinType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2280), new Guid("031f0834-1fd4-439f-868b-df0bbe3173b2") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(820), new Guid("d56dac24-bac7-442d-9e70-7dd349393e9c") });
 
             migrationBuilder.UpdateData(
                 table: "CoinType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2300), new Guid("50501be9-21d0-4e34-8b49-a1f1fff34734") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(840), new Guid("36e121dc-b0b5-42ef-b43e-1df3bfcc3334") });
 
             migrationBuilder.UpdateData(
                 table: "CoinType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2310), new Guid("2ee13282-3bdf-4b76-b26d-2b8b5dab90ed") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(850), new Guid("ff12fded-31a6-4bcf-abec-54dc41211b9a") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(1930), new Guid("202e9fc3-e051-43e2-a1fd-c31f107356d9") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(510), new Guid("f13c71d3-d153-4881-8a49-1699387d3ef8") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(1980), new Guid("99f4b886-f0eb-4a99-bba7-891dd7bd9524") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(570), new Guid("b1e8993d-4447-4e88-993e-ef8331e9e7fb") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(1990), new Guid("9687d201-20d9-4c81-91b5-7267188d9259") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(580), new Guid("e15ec82b-307c-4cf5-b0bb-a1987f4b4a07") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2000), new Guid("9bda0162-dd12-41f0-bc14-2e59723c653a") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(590), new Guid("01bd1779-77d8-419b-919b-5861de7bd9d0") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2020), new Guid("8fff77b1-1a9c-4fa7-a663-caaa1c44a03e") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(600), new Guid("d7d6598d-34d1-4736-b6ac-45b1cd2f47cb") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2030), new Guid("615a18d7-fc43-4a0d-9091-9d0000facb7e") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(610), new Guid("9ddc1d49-a1d9-444d-886c-6d6be1cf2f6b") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 7L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2040), new Guid("d43977bf-082e-4258-ad5c-25da6cf273ab") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(630), new Guid("43a4d1f1-9759-47a8-8aa2-b482114350f4") });
 
             migrationBuilder.UpdateData(
                 table: "ContactType",
                 keyColumn: "Id",
                 keyValue: 8L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2050), new Guid("2830b12a-c885-4267-8008-72a3cc8f376f") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(640), new Guid("eedd9150-d883-4552-a007-71dc670fa70d") });
 
             migrationBuilder.UpdateData(
                 table: "DiscountType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2360), new Guid("db82b592-1e6e-4d36-b12b-e3dd7b0be9d4") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(910), new Guid("aff22554-1841-413d-b920-28eeeca07c73") });
 
             migrationBuilder.UpdateData(
                 table: "DiscountType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2380), new Guid("2a1cd8aa-69fd-4170-a29d-10d2539ababb") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(930), new Guid("393ee895-46d3-4fc1-94f6-4721b5e1e82b") });
 
             migrationBuilder.UpdateData(
                 table: "DiscountType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2390), new Guid("eae5521c-cab9-4a98-b64c-639d08426606") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(940), new Guid("e2328040-1cd2-4559-9ecb-71f5c332c828") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2180), new Guid("8ad6df2d-a79b-4ad6-aa96-70834d6e6596") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(720), new Guid("0fec0636-0a25-4433-bcdd-de2fddd7485e") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2200), new Guid("ae023b5f-8a07-4454-b829-fe32b1a447c6") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(740), new Guid("3e4247be-f60d-471e-bf5f-d41e2dc63b22") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2210), new Guid("376743b3-0609-44ab-b367-c29c08482092") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(750), new Guid("3465a010-8ab3-4df1-a234-ab7c093207d2") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2220), new Guid("21adfa92-ea46-403f-a8cb-7fb26f65ae03") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(760), new Guid("f3e11a82-8274-43f9-9c8a-b0d5558cfea1") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2230), new Guid("eca978a2-5304-4d7d-8bea-5813722d108a") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(780), new Guid("63f45de2-2569-48da-a1ae-bc3f383c2dba") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2250), new Guid("bd3846f4-9888-4cef-9db3-b6fbed5593eb") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(790), new Guid("8b23e4c2-5575-45e7-b2b4-6c520d55e3cc") });
 
             migrationBuilder.UpdateData(
                 table: "DocumentType",
                 keyColumn: "Id",
                 keyValue: 7L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2260), new Guid("ce1dbadc-dc82-4460-84b2-1a0d5970f0bd") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(800), new Guid("9c7b40d6-eb85-4b0c-87a6-7c2206fc0eb3") });
 
             migrationBuilder.UpdateData(
                 table: "ProductType",
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2410), new Guid("e09209d4-ee99-4f26-9fdb-f2f6cde54780") });
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(960), new Guid("651f2ee8-2631-4cb3-9926-24afd922426d") });
 
             migrationBuilder.UpdateData(
                 table: "ProductType",
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreatedAt", "ExternalId" },
-                values: new object[] { new DateTime(2022, 11, 26, 16, 24, 43, 811, DateTimeKind.Local).AddTicks(2430), new Guid("69a00ef6-4ab6-4fdb-9ac7-d94975c8cb23") });
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Document_Client_ClientId",
-                table: "Document",
-                column: "ClientId",
-                principalTable: "Client",
-                principalColumn: "Id");
+                values: new object[] { new DateTime(2022, 12, 4, 2, 14, 55, 329, DateTimeKind.Local).AddTicks(970), new Guid("5dcf1889-8f37-4ab2-8390-11cdd4605df9") });
         }
     }
 }

@@ -24,5 +24,6 @@ namespace ProSales.Domain.Global
         public ICollection<ProductSale>? ProductsSale { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime FinishedAt { get; set; }
     }
 }

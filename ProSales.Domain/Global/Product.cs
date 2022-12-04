@@ -38,6 +38,7 @@ namespace ProSales.Domain.Global
         public ICollection<Specification>? Specifications { get; set; }
         public ICollection<ProductCart>? ProductsCart { get; set; }
         public ICollection<ProductOrder>? ProductsOrder { get; set; }
+        public ICollection<ProductSale>? ProductsSale { get; set; }
         
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

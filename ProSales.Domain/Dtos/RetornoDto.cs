@@ -62,7 +62,7 @@ namespace ProSales.Domain.Dtos
 
         public static RetornoDto unauthorized(string message = ""){
             RetornoDto ret = new RetornoDto();
-            ret.Message = message == "" ? "Sem permissão" : message;
+            ret.Message = message == "" ? "Sem permissão para realziar esta ação" : message;
             ret.Success = false;
             ret.StatusCode = StatusCodes.Status401Unauthorized;
 

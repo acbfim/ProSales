@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 
 namespace ProSales.Domain.Dtos
 {
-    public class DiscountTypeExternal
+    public class CoinTypeDto
     {
         public Guid ExternalId { get; set; }
-        //public CalculationTypeExternal CalculationType { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Label { get; set; }
 
     }
 }

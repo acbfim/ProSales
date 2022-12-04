@@ -17,6 +17,7 @@ namespace ProSales.API.Helpers
             CreateMap<Address, AddressDto>().ReverseMap();
 
             CreateMap<CalculationType, CalculationTypeDto>().ReverseMap();
+            CreateMap<CalculationType, CalculationTypeExternal>().ReverseMap();
 
             CreateMap<Cart, CreateCartDto>().ReverseMap();
             CreateMap<Cart, CartDto>().ReverseMap();
@@ -61,6 +62,8 @@ namespace ProSales.API.Helpers
 
             CreateMap<ProductCart, ProductCartDto>().ReverseMap();
 
+            CreateMap<ProductSale, ProductSaleDto>().ReverseMap();
+
             CreateMap<ProductType, CreateProductTypeDto>().ReverseMap();
             CreateMap<ProductType, ProductTypeDto>().ReverseMap();
             CreateMap<ProductType, ProductTypeExternal>().ReverseMap();
@@ -71,6 +74,18 @@ namespace ProSales.API.Helpers
             CreateMap<Specification, SpecificationDto>().ReverseMap();
 
             CreateMap<CoinType, CoinTypeExternal>().ReverseMap();
+            CreateMap<CoinType, CoinTypeDto>().ReverseMap();
+
+            CreateMap<Sale, CreateSaleDto>().ReverseMap();
+            CreateMap<Sale, SaleDtoAddProduct>().ReverseMap();
+            CreateMap<Sale, SaleDto>().ReverseMap();
+            CreateMap<Sale, SaleExternal>().ReverseMap();
+
+            CreateMap<ProductSale, CreateProductSaleDto>().ReverseMap();
+            CreateMap<ProductSale, UpdateDiscountProductSaleDto>().ReverseMap();
+            CreateMap<ProductSale, ProductSaleDto>().ReverseMap();
+
+            CreateMap<User, UserDto>().ReverseMap();
         }
         
     }

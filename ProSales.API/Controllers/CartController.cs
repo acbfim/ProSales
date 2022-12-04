@@ -38,7 +38,7 @@ public class CartController : ControllerBase
     /// Get Item by Query
     /// </summary>
     [HttpGet("by-query")]
-    public async Task<IActionResult> GetAllBrandByQuery([FromQuery] CartQuery query)
+    public async Task<IActionResult> GetAllByQuery([FromQuery] CartQuery query)
     {
         var ret = this.service.GetAllByQuery(query).Result;
         return StatusCode(ret.StatusCode, ret);

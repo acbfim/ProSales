@@ -53,8 +53,15 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 
+            services.AddScoped<IProductSaleRepository, ProductSaleRepository>();
+
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
+
+            services.AddScoped<ISaleService, SaleService>();
+            services.AddScoped<ISaleRepository, SaleRepository>();
+
+            services.AddScoped<IUserManagerRepository, UserManagerRepository>();
 
 
 
