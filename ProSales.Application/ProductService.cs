@@ -220,11 +220,11 @@ namespace ProSales.Application
             }
         }
 
-        public async Task<RetornoDto> GetAllByQuery(ProductQuery query)
+        public async Task<RetornoDto> GetAllByQuery(ProductQuery query, bool includeJoins = false)
         {
             try
             {
-                var itemFound = this.Repo.GetAllByQuery(query).Result;
+                var itemFound = this.Repo.GetAllByQuery(query, includeJoins).Result;
 
                 if (itemFound == null)
                     return RetornoDto.objectNotFound();

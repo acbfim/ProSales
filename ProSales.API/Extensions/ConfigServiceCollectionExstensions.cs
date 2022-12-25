@@ -61,6 +61,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ISaleService, SaleService>();
             services.AddScoped<ISaleRepository, SaleRepository>();
 
+            services.AddScoped<ISpecificationService, SpecificationService>();
+            services.AddScoped<ISpecificationRepository, SpecificationRepository>();
+
             services.AddScoped<IUserManagerRepository, UserManagerRepository>();
 
 

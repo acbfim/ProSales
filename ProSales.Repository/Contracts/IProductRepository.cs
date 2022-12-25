@@ -12,7 +12,7 @@ namespace ProSales.Repository.Contracts
         Task<Product> GetByExternalId(Guid externalId);
         Task<Product> GetByName(string name);
         Task<Product> GetById(long id);
-        Task<ICollection<Product>> GetAllByQuery(ProductQuery query);
+        Task<ICollection<Product>> GetAllByQuery(ProductQuery query, bool includeJoins = false);
         Task<long> GetCountItems(ProductQuery query);
 
     }

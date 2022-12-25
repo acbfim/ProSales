@@ -14,7 +14,7 @@ namespace ProSales.Application.Contracts
         Task<RetornoDto> GetByExternalId(Guid externalId);
         Task<RetornoDto> GetByName(string name);
         Task<RetornoDto> GetById(long id);
-        Task<RetornoDto> GetAllByQuery(ProductQuery query);
+        Task<RetornoDto> GetAllByQuery(ProductQuery query, bool includeJoins = false);
 
     }
 }

@@ -72,6 +72,8 @@ namespace ProSales.API.Helpers
             CreateMap<Order, OrderDto>().ReverseMap();
 
             CreateMap<Specification, SpecificationDto>().ReverseMap();
+            CreateMap<Specification, CreateSpecificationDto>().ReverseMap();
+
 
             CreateMap<CoinType, CoinTypeExternal>().ReverseMap();
             CreateMap<CoinType, CoinTypeDto>().ReverseMap();

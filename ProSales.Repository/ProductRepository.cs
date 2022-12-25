@@ -43,7 +43,7 @@ namespace ProSales.Repository
             return await query.FirstOrDefaultAsync(x => x.Name.ToUpper() == name.ToUpper());
         }
 
-        public async Task<ICollection<Product>> GetAllByQuery(ProductQuery query)
+        public async Task<ICollection<Product>> GetAllByQuery(ProductQuery query, bool includeJoins = false)
         {
             var newSkip = query.Skip == 0 ? 0 : (query.Skip*query.Take);
 
@@ -51,6 +51,7 @@ namespace ProSales.Repository
             .Skip(newSkip)
             .Take((int)query.Take);
 
+            if (includeJoins)
             result = result
                 .Include(x => x.Specifications)
                 .Include(x => x.Brand)

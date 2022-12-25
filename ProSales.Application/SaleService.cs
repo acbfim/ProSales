@@ -256,7 +256,7 @@ namespace ProSales.Application
                     return RetornoDto.objectNotFound("Relação da venda com produto não encontrada");
 
                 // CalculationType = 3 é Subtração
-                if((discountTypeFound.CalculationType.Id == 3) && productFound.Price < productSale.Discount)
+                if((discountTypeFound.CalculationType!.Id == 3) && productFound.Price < productSale.Discount)
                     return RetornoDto.unauthorized("Não é possível aplicar um desconto com valor maior que o preço do produto");
 
 

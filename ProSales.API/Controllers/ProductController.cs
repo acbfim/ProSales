@@ -26,32 +26,35 @@ public class ProductController : ControllerBase
     /// <summary>
     /// Get Item by ExternalID
     /// </summary>
-    /// <param name= "ExternalId"></param>
+    /// <param name= "externalId"></param>
     [HttpGet("by-external-id/{externalId}")]
     public async Task<IActionResult> getByExternalId(Guid externalId)
     {
-        var ret = this.service.GetByExternalId(externalId).Result;
+        var ret = await this.service.GetByExternalId(externalId);
         return StatusCode(ret.StatusCode, ret);
     }
 
     /// <summary>
     /// Get Item by Name
     /// </summary>
-    /// <param name= "Name"></param>
+    /// <param name= "name"></param>
     [HttpGet("by-name/{name}")]
     public async Task<IActionResult> GetBrandByName(string name)
     {
-        var ret = this.service.GetByName(name).Result;
+        var ret = await this.service.GetByName(name);
         return StatusCode(ret.StatusCode, ret);
     }
 
     /// <summary>
     /// Get Item by Query
     /// </summary>
+    /// <param name= "query"></param>
+    /// <param name= "includeJoins"></param>
     [HttpGet("by-query")]
-    public async Task<IActionResult> GetAllBrandByQuery([FromQuery] ProductQuery query)
+    public async Task<IActionResult> GetAllBrandByQuery([FromQuery] ProductQuery query
+    ,[FromQuery] bool includeJoins = false)
     {
-        var ret = this.service.GetAllByQuery(query).Result;
+        var ret = await this.service.GetAllByQuery(query, includeJoins);
         return StatusCode(ret.StatusCode, ret);
     }
 
@@ -61,7 +64,7 @@ public class ProductController : ControllerBase
     [HttpPost("create")]
     public async Task<IActionResult> postCreate(CreateProductDto create)
     {
-        var ret = this.service.Create(create).Result;
+        var ret = await this.service.Create(create);
         return StatusCode(ret.StatusCode, ret);
     }
 
@@ -71,7 +74,7 @@ public class ProductController : ControllerBase
     [HttpPut("update")]
     public async Task<IActionResult> putUpdate(ProductDto update)
     {
-        var ret = this.service.Update(update).Result;
+        var ret = await this.service.Update(update);
         return StatusCode(ret.StatusCode, ret);
     }
 
@@ -82,7 +85,7 @@ public class ProductController : ControllerBase
     [HttpPut("toggleStatus/by-external-id/{externalId}")]
     public async Task<IActionResult> ToogleAlterStatus(Guid externalId)
     {
-        var ret = this.service.ToogleAlterStatus(externalId).Result;
+        var ret = await this.service.ToogleAlterStatus(externalId);
         return StatusCode(ret.StatusCode, ret);
     }
 }
