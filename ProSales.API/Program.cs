@@ -22,6 +22,14 @@ builder.Services.AddConfigIdentity();
 
 builder.Services.AddAuth();
 
+builder.Services.AddCors(options =>
+                {
+                    options.AddPolicy("CorsPolicy", builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+                });
+
 
 var app = builder.Build();
 
@@ -37,5 +45,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("CorsPolicy");
 
 app.Run();
